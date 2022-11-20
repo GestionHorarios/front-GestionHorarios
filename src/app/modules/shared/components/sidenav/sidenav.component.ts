@@ -13,10 +13,9 @@ export class SidenavComponent implements OnInit {
   //vaiable que controla el menu
   menuNav=[
     {name:"Home",route:"home", icon:"home"},
-    {name:"SubirArchivo", route:"home", icon:"unarchive"},
-    {name:"AgregarInfrastructura", route:"home", icon:"add_circle"},
-    {name:"Configurar", route:"home", icon:"brightness_low"},
-    {name:"Agregar Cursos", route:"home", icon:"add"},
+    {name:"Recursos", route:"recurso", icon:"add_circle"},
+    {name:"Subir Archivo", route:"home", icon:"note_add"},
+    {name:"Agregar cursos", route:"home", icon:"add"},
     {name:"Programar  Cursos", route:"home", icon:"calendar_today"}
 
   ]
