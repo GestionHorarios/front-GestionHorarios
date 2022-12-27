@@ -18,10 +18,19 @@ export class RecursoService {
 
   getRecursos(){
 
-    const enpoint =`${base_url}/recurso`;
+    const enpoint =`${base_url}/recursos`;
     return this.http.get(enpoint);
 
   }
+
+  getFacultades(){
+
+    const enpoint =`${base_url}/facultades`;
+    return this.http.get(enpoint);
+
+  }
+
+
 
   /**
    * metodo que guarda recursos
@@ -59,5 +68,9 @@ export class RecursoService {
     const endpoint = `${base_url}/recursos/ ${id}`;
     return this.http.get(endpoint);
 
+    /**
+     * Facultades 
+     */
+    
   }
 }

@@ -23,7 +23,7 @@ export class RecursoComponent implements OnInit {
     this.getRecursos();
     
   }
-  displayedColumns: string[]=['rec_id','rec_codigo','rec_descripcion','rec_tipo', 'actions'];
+  displayedColumns: string[]=['rec_id','rec_codigo','facultad','rec_descripcion', 'rec_capmax','tiporecurso', 'rec_nombre','ubicacion', 'actions'];
   dataSource= new MatTableDataSource<RecursoElement>();
 
 
@@ -45,6 +45,9 @@ export class RecursoComponent implements OnInit {
     let listRecursos= resp.recursoResponse.recurso;
 
     listRecursos.forEach((element: RecursoElement) => {
+      element.facultad = element.facultad.fac_codigo;
+      element.ubicacion = element.ubicacion.ubi_codigo;
+      element.tiporecurso = element.tiporecurso.rectipo_codigo;
       dataRecurso.push(element);
     });
 
@@ -76,7 +79,7 @@ export class RecursoComponent implements OnInit {
 
   const dialogRef = this.dialog.open( NewrecursoComponent , {
     width: '450px',
-    data:{rec_id: rec_id, rec_codigo:rec_codigo, rec_descripcion:rec_descripcion, rec_tipo: rec_tipo}
+    data:{rec_id: rec_id, rec_codigo:rec_codigo, rec_descripcion:rec_descripcion, rec_tipo: rec_tipo, }
   });
 
   dialogRef.afterClosed().subscribe((result:any) => {
@@ -142,5 +145,10 @@ export interface RecursoElement{
   rec_id: number;
   rec_codigo: string;
   rec_descripcion: string;
+  facultad: any;
+  tiporecurso: any;
   rec_tipo:string;
+  rec_capmax: string;
+  ubicacion: any;
+  rec_nombre: string;
 }

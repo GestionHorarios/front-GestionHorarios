@@ -20,12 +20,17 @@ mat-form-field {
 .mat-header-cell:nth-child(1){
     flex: 0 0 6%;
 }
-
 .foto2 { 
     padding: 2px; 
-    margin: auto; 
+    margin: 50px; 
      float: left;
-      width: 140px; 
+      width:auto ; 
+      height: auto;
    
     align-content: center;
+}
+
+.footercolor {
+    color: blue;
+    background: rgb(14, 17, 219);
 }

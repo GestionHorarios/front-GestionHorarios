@@ -21,11 +21,16 @@ mat-form-field {
     flex: 0 0 6%;
 }
 
+.centrado {
+    margin:auto;
+    text-align: center;
+}
+
 .foto2 { 
     padding: 2px; 
     margin: auto; 
      float: left;
-      width: 140px; 
+      width: 120px; 
    
     align-content: center;
 }

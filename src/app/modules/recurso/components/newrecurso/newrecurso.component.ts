@@ -4,6 +4,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RecursoService } from 'src/app/modules/shared/services/recurso.service';
 
+
+
+export interface Recurso{
+  rec_id: number,
+  rec_codigo: number,
+  rec_tipo: string,
+  rec_nombre:string,
+  rec_descripcion: string
+  rec_capacidadmax:number;
+
+}
+
 @Component({
   selector: 'app-newrecurso',
   templateUrl: './newrecurso.component.html',
@@ -13,27 +25,36 @@ export class NewrecursoComponent implements OnInit {
 
   public recursoForm: FormGroup;
   estadoFormulario: string="";
+  recursos: Recurso[]=[];
   constructor( private fb: FormBuilder, private RecursoService: RecursoService, 
     private dialogRef: MatDialogRef<NewrecursoComponent>,
+
+
     @Inject(MAT_DIALOG_DATA) public data:any ) {
 
       console.log(data);
       this.estadoFormulario ="Agregar";
 
-    this.recursoForm = this.fb.group({
-      rec_codigo: ['', Validators.required],
-      rec_descripcion: ['', Validators.required],
-      rec_tipo: ['', Validators.required]
+    this.recursoForm = this.fb.group( {
+      rec_codigo: ['', Validators.required ],
+      rec_descripcion: ['', Validators.required ],
+      rec_cod_facultad: ['', Validators.required],
+      rec_capacidadmax: ['', Validators.required ],
+      rec_tipo: ['', Validators.required ],
+      rec_nombre: ['', Validators.required]
+      
     });
 
     if(data != null){
       this.updateForm(data);
-      this,this.estadoFormulario="Actualizar";
+      this.estadoFormulario="Actualizar";
     }
 
    }
 
   ngOnInit(): void {
+
+   this.getRecursos()
   }
 
   onSave(){
@@ -71,6 +92,15 @@ export class NewrecursoComponent implements OnInit {
     this.dialogRef.close(3);
 
   }
+
+  getRecursos(){
+    this.RecursoService.getRecursos().subscribe((data:any)=>{
+
+      this.recursos = data.recursoResponse.recurso;    
+    },(error:any)=>{
+      console.log("Error al consultar  Recursos ")
+    })
+  }
   updateForm(data:any){
     this.recursoForm = this.fb.group({
       rec_codigo: [data.rec_codigo, Validators.required],
@@ -79,6 +109,10 @@ export class NewrecursoComponent implements OnInit {
     });
 
   }
+
+  
+
+ 
 
 
 }

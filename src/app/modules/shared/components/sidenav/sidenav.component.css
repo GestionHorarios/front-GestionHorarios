@@ -10,6 +10,7 @@
 .is-mobilel .dashboard-toolbar{
     position: fixed;
     z-index: 2;
+    
 }
 h1.app-name{
     margin-left: 8px;
@@ -35,3 +36,21 @@ ul li {
 .icono{
     margin-right: 10px;
 }
+.foto1 { 
+    padding: 2px; 
+    margin: 50px; 
+     float: left;
+      width: 120px; 
+    border-radius:40px;
+    border:5px solid rgb(153, 21, 21);
+    align-content: center;
+}
+.foto2 { 
+    padding: 2px; 
+    margin: 50px; 
+     float: left;
+      width: 60px; 
+   
+    align-content: center;
+}
+

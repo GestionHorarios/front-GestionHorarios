@@ -7,14 +7,61 @@
             <mat-form-field>
                 <input matInput placeholder="codigo" formControlName="rec_codigo" required>
             </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Tipo de Recurso </mat-label>
+                <mat-select>
+                    <mat-option value="cargar_pruebas()">  Tipo Ambiente </mat-option>
+                    <mat-option value="option1">Amb</mat-option>
+                    <mat-option value="option2">Instru</mat-option>
+                    <mat-option value="option3">Tecno</mat-option>
+                </mat-select>
+    
+
+            </mat-form-field>
+            
+            <mat-form-field>
+               <mat-label>Categoria de Recursos</mat-label>
+               <mat-select formControlName="rec_tipo">
+              <mat-option *ngFor="let  rec of recursos"[value]="rec.rec_id">
+                 
+
+               {{rec.rec_tipo}}
+
+               </mat-option>
+            </mat-select>
+
+            </mat-form-field>
+
+          
+
+            <mat-form-field>
+                <textarea matInput placeholder="Cod_Facultad" formControlName="rec_cod_facultad" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field >
+                <textarea matInput type="number" placeholder="capacidad Maxima" formControlName="rec_capacidadmax" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea matInput placeholder="Nombre" formControlName="rec_nombre" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea matInput placeholder="ubicacion" formControlName="rec_tipo" required></textarea>
+            </mat-form-field>
+
+
+           
+
+
             <mat-form-field>
                 <textarea matInput placeholder="descripcion" formControlName= "rec_descripcion" required></textarea>
             </mat-form-field>
-    
-            <mat-form-field>
-                <textarea matInput placeholder="tipo" formControlName="rec_tipo" required></textarea>
-            </mat-form-field>
 
+
+    
+            
         </div>
     </form>
 
