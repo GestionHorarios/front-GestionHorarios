@@ -18,5 +18,9 @@ export class TipoRecursoService {
 
   }
 
+  getRecursosHijos(rec_cod_padre:string){
+    const endpoint = `${base_url}/hijostiporecursos/${rec_cod_padre}`;
+    return this.http.get(endpoint);
+  }
   
 }

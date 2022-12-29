@@ -30,14 +30,12 @@ export class RecursoService {
 
   }
 
-
-
   /**
    * metodo que guarda recursos
    */
 
   saveRecursos(body:any){
-    const endpoint = `${base_url}/recursos`;
+    const endpoint =`${base_url}/recursos`;
     return this.http.post(endpoint,body);
   }
 

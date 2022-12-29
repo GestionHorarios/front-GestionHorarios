@@ -1,69 +1,66 @@
 <h2 mat mat-dialog-title> {{estadoFormulario}} </h2>
 
 <mat-dialog-content>
-    <form [formGroup]="recursoForm">
-
-        <div class="category-container">
-            <mat-form-field>
-                <input matInput placeholder="codigo" formControlName="rec_codigo" required>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Tipo de Recurso </mat-label>
-                <mat-select>
-                    <mat-option value="cargar_pruebas()">  Tipo Ambiente </mat-option>
-                    <mat-option value="option1">Amb</mat-option>
-                    <mat-option value="option2">Instru</mat-option>
-                    <mat-option value="option3">Tecno</mat-option>
-                </mat-select>
-    
-
-            </mat-form-field>
-            
-            <mat-form-field>
-               <mat-label>Categoria de Recursos</mat-label>
-               <mat-select formControlName="rec_tipo">
-              <mat-option *ngFor="let  rec of recursos"[value]="rec.rec_id">
-                 
-
-               {{rec.rec_tipo}}
-
-               </mat-option>
-            </mat-select>
-
-            </mat-form-field>
-
-          
-
-            <mat-form-field>
-                <textarea matInput placeholder="Cod_Facultad" formControlName="rec_cod_facultad" required></textarea>
-            </mat-form-field>
-
-            <mat-form-field >
-                <textarea matInput type="number" placeholder="capacidad Maxima" formControlName="rec_capacidadmax" required></textarea>
-            </mat-form-field>
-
-            <mat-form-field>
-                <textarea matInput placeholder="Nombre" formControlName="rec_nombre" required></textarea>
-            </mat-form-field>
-
-            <mat-form-field>
-                <textarea matInput placeholder="ubicacion" formControlName="rec_tipo" required></textarea>
-            </mat-form-field>
+  <form [formGroup]="recursoForm">
+    <div class="category-container">
 
 
-           
+      <mat-form-field>
+        <input matInput placeholder="Codigo" formControlName="rec_codigo" required>
+      </mat-form-field>
+  
+     
 
+      <mat-form-field>
+        <mat-label>Tipo de Recurso</mat-label>
+        <mat-select  formControlName="rectipo_padre">
+          <mat-option *ngFor="let rectipopadre of tipoRecursosPadres" [value]="rectipopadre.rectipo_codigo" (click)="hijos(rectipopadre.rectipo_codigo)">
+            {{rectipopadre?.rectipo_codigo}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-            <mat-form-field>
-                <textarea matInput placeholder="descripcion" formControlName= "rec_descripcion" required></textarea>
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>Categoria  de Recurso</mat-label>
+        <mat-select formControlName="rectipo_codigo">
+          <mat-option *ngFor="let rectipo of  tipoRecursoHijos" [value]="rectipo.rectipo_codigo">
+            {{rectipo?.rectipo_codigo}}
+          </mat-option>
+        </mat-select>
+     
 
+     </mat-form-field>
 
-    
-            
-        </div>
-    </form>
+     
+
+      
+
+      <mat-form-field>
+        <textarea matInput placeholder="Cod_Facultad" formControlName="fac_codigo" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea matInput type="number" placeholder="capacidad Maxima" formControlName="rec_capmax" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea matInput placeholder="Nombre" formControlName="rec_nombre" required></textarea>
+      </mat-form-field>
+
+     
+
+      <mat-form-field>
+        <textarea matInput placeholder="descripcion" formControlName="rec_decripcion" required></textarea>
+      </mat-form-field>
+   
+
+    <mat-form-field>
+      <textarea matInput placeholder="ubicacion" formControlName="ubi_codigo" required></textarea>
+    </mat-form-field>
+
+  </div>
+  </form>
+
 
     <mat-dialog-actions>
         <button mat-button color="primary" (click)="onSave()" [disabled]="recursoForm.invalid">
@@ -77,3 +74,4 @@
     </mat-dialog-actions>
 
 </mat-dialog-content>
+

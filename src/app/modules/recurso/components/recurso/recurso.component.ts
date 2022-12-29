@@ -23,7 +23,7 @@ export class RecursoComponent implements OnInit {
     this.getRecursos();
     
   }
-  displayedColumns: string[]=['rec_id','rec_codigo','facultad','rec_descripcion', 'rec_capmax','tiporecurso', 'rec_nombre','ubicacion', 'actions'];
+  displayedColumns: string[]=['rec_id','rec_codigo','facultad','rec_descripcion', 'rec_capmax','rec_nombre','tiporecurso','ubicacion', 'actions'];
   dataSource= new MatTableDataSource<RecursoElement>();
 
 
@@ -75,25 +75,26 @@ export class RecursoComponent implements OnInit {
   });
 
  }
- edit (rec_id:number, rec_codigo: string, rec_descripcion:string, rec_tipo:string){
+ edit ( rec_codigo: string, rec_tipocodigo:string, fac_codigo:string, rec_capmax:number, rec_nombre:string,rec_decripcion:string,ubi_codigo:string){
 
   const dialogRef = this.dialog.open( NewrecursoComponent , {
     width: '450px',
-    data:{rec_id: rec_id, rec_codigo:rec_codigo, rec_descripcion:rec_descripcion, rec_tipo: rec_tipo, }
+    data:{rec_codigo: rec_codigo, rec_tipocodigo: rec_tipocodigo, fac_codigo: fac_codigo,rec_capmax: rec_capmax,rec_nombre: rec_nombre,rec_decripcion: rec_decripcion,ubi_codigo: ubi_codigo}
   });
 
   dialogRef.afterClosed().subscribe((result:any) => {
 
     if(result==1){ 
-      this.openSnackBar("Recurso Actualizada", "Exitosamente");
+      this.openSnackBar("Recurso editado", "Exitosamente");
       this.getRecursos();
 
     
     }else if (result ==2){
-      this.openSnackBar("se produjo un error al actualizar recurso ", "Error");
+      this.openSnackBar("se produjo un error al editar recurso ", "Error");
 
     }
   });
+
 
     
 }
