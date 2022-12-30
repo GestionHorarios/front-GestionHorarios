@@ -75,29 +75,7 @@ export class RecursoComponent implements OnInit {
   });
 
  }
- edit ( rec_codigo: string, rec_tipocodigo:string, fac_codigo:string, rec_capmax:number, rec_nombre:string,rec_decripcion:string,ubi_codigo:string){
-
-  const dialogRef = this.dialog.open( NewrecursoComponent , {
-    width: '450px',
-    data:{rec_codigo: rec_codigo, rec_tipocodigo: rec_tipocodigo, fac_codigo: fac_codigo,rec_capmax: rec_capmax,rec_nombre: rec_nombre,rec_decripcion: rec_decripcion,ubi_codigo: ubi_codigo}
-  });
-
-  dialogRef.afterClosed().subscribe((result:any) => {
-
-    if(result==1){ 
-      this.openSnackBar("Recurso editado", "Exitosamente");
-      this.getRecursos();
-
-    
-    }else if (result ==2){
-      this.openSnackBar("se produjo un error al editar recurso ", "Error");
-
-    }
-  });
-
-
-    
-}
+ 
   delete(rec_id: any){
     const dialogRef = this.dialog.open( ConfirmComponent , {
       width: '450px',

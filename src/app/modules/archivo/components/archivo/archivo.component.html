@@ -1,1 +1,15 @@
-<p>archivo works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Subir archivo de Excel</title>
+  <link rel="archivo.component.css" href="style.css">
+</head>
+<body>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="excel-file">Seleccione un archivo de Excel:</label>
+    <input type="file" name="excel-file" id="excel-file" accept=".xls,.xlsx">
+    <input type="submit" value="Subir archivo">
+  </form>
+</body>
+</html>

@@ -55,7 +55,7 @@
              <!-- name column -->
              <ng-container matColumnDef="tiporecurso">
                 <th mat-header-cell *matHeaderCellDef> Tipo  Recurso </th>
-                <td mat-cell *matCellDef="let element"> {{ element.tiporecurso }} </td>
+                <td mat-cell *matCellDef="let element"> {{ element.tiporecurso}} </td>
             </ng-container> 
 
             <ng-container matColumnDef="rec_nombre">
@@ -82,9 +82,9 @@
                 <td mat-cell *matCellDef="let element; let i=index;">
                     <!--realizamos un edit para actualizar evento onclick-->
 
-                    <button mat-icon-button color="accent" (click)="edit(element.rec_codigo,element.rec_tipo,element.fac_codigo,element.rec_capmax,element.rec_nombre, element.rec_decripcion, element.ubi_codigo)">
+                   <!--<button mat-icon-button color="accent" (click)="edit(element.rec_id ,element.rec_codigo, element.rec_tipo, element.fac_codigo, element.rec_capmax, element.rec_nombre, element.rec_decripcion, element.ubi_codigo)">
                         <mat-icon aria-label="Edit">edit</mat-icon>
-                    </button>
+                    </button>--> 
                 <!--evento  para eliminar -->
                     <button mat-icon-button color="accent" (click)="delete(element.rec_id)">
                         <mat-icon aria-label="Delete">delete</mat-icon>

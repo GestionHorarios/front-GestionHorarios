@@ -2,14 +2,33 @@ import { group } from '@angular/animations';
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FacultadService } from 'src/app/modules/shared/services/facultad.service';
 import { RecursoService } from 'src/app/modules/shared/services/recurso.service';
 import { TipoRecursoService } from 'src/app/modules/shared/services/tipo-recurso.service';
+import { UbicacionService } from 'src/app/modules/shared/services/ubicacion.service';
 
 
 export interface TipoRecurso {
   rectipo_codigo: string;
   rectipo_nombre: string;
   tiporecurso: any;
+}
+
+export interface facultadeselement{
+
+  fac_codigo: string;
+  fac_nombre: string;
+  ubicacion: any ;
+
+}
+
+export interface ubicacioneselement{
+  ubi_codigo:string,
+  ubi_nombre:string,
+  ubi_direccion:string,
+  ubi_ciudad:string
+
+
 }
 
 @Component({
@@ -20,15 +39,18 @@ export interface TipoRecurso {
 export class NewrecursoComponent implements OnInit {
 
   public recursoForm: FormGroup;
-  Selecionado:string="";
   estadoFormulario: string = "";
   tipoRecursos: TipoRecurso[] = [];
   tipoRecursosPadres:TipoRecurso[]=[];
   tipoRecursoHijos:TipoRecurso[]=[];
+  facultades: facultadeselement[]=[];
+  ubicaciones:ubicacioneselement[]=[];
   constructor(
     private fb: FormBuilder,
     private tipoRecursoService: TipoRecursoService,
     private RecursoService: RecursoService,
+    private facultadesService:FacultadService,
+    private ubicacionesService:UbicacionService,
     private dialogRef: MatDialogRef<NewrecursoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -36,94 +58,61 @@ export class NewrecursoComponent implements OnInit {
     this.estadoFormulario = "Agregar";
 
     this.recursoForm = this.fb.group({
-      rec_codigo: ['', Validators.required],
-      rec_decripcion: ['', Validators.required],
-      fac_codigo: ['', Validators.required],
-      rec_capmax: ['', Validators.required],
-      rectipo_codigo: ['', Validators.required],
+      rec_codigo:['',Validators.required],
+      tiporecurso: ['',Validators.required],
       rectipo_padre: ['',Validators.required],
-      rec_nombre: ['', Validators.required],
-      ubi_codigo: ['', Validators.required]
+      facultad: ['',Validators.required],
+      rec_capmax: [''],
+      rec_nombre: ['',Validators.required],
+      rec_decripcion: ['',Validators.required],
+      ubicacion: ['',Validators.required]
+
+     
     });
 
-
-    if (data != null) {
-      this.updateForm(data);
-      this.estadoFormulario = "Actualizar";
-    }
   }
 
-  hijos(id:string){
-   //console.log("hujos"+id);
-   this.tipoRecursoService.getRecursosHijos(id)
-   .subscribe((data: any) => {
-   // console.log("hijos: ",data);
-    this.procesarTipoCategoriaHijos(data);
-   })
-  }
-
-  procesarTipoCategoriaHijos(res: any){
-    const dataTipoRecursosHijos : TipoRecurso[] = [];
-    if( res.metadata[0].code == "00") {
-      let listHijos = res.tiporecursoResponse.tiporecurso;
-      listHijos.forEach((element : TipoRecurso) => {
-        dataTipoRecursosHijos.push(element);
-      });
-      //cargar los datos en el seelct hijos
-      this.tipoRecursoHijos = dataTipoRecursosHijos;
-    }
-  }
+ 
 
   ngOnInit(): void {
     this.getTipoRecursos();
+    this.getTipoFacultades();
+    this.getTipoubicaciones();
   }
 
   onSave() {
-    
-    let data = {
+    let data={
       rec_codigo: this.recursoForm.get('rec_codigo')?.value,
-      rectipo_codigo: this.recursoForm.get('rectipo_codigo')?.value,
-      fac_codigo: this.recursoForm.get('fac_codigo')?.value,
+      tiporecurso: this.recursoForm.get('tiporecurso')?.value,
+      rectipo_padre: this.recursoForm.get('rectipo_padre')?.value,
+      facultad: this.recursoForm.get('facultad')?.value,
       rec_capmax: this.recursoForm.get('rec_capmax')?.value,
       rec_nombre: this.recursoForm.get('rec_nombre')?.value,
       rec_decripcion: this.recursoForm.get('rec_decripcion')?.value,
-      ubi_codigo: this.recursoForm.get('ubi_codigo')?.value
-  
+      ubicacion: this.recursoForm.get('ubicacion')?.value
+
     }
     const uploadImageData = new FormData();
+
     uploadImageData.append('rec_codigo', data.rec_codigo);
-    uploadImageData.append('rectipo_codigo', data.rectipo_codigo);
-    uploadImageData.append('fac_codigo', data.fac_codigo);
+    uploadImageData.append('rectipo_codigo', data.tiporecurso);
+    uploadImageData.append('fac_codigo', data.facultad);
     uploadImageData.append('rec_capmax', data.rec_capmax);
     uploadImageData.append('rec_nombre', data.rec_nombre);
     uploadImageData.append('rec_decripcion', data.rec_decripcion);
-    uploadImageData.append('ubi_codigo', data.ubi_codigo);
+    uploadImageData.append('ubi_codigo', data.ubicacion); 
 
-    if(this.data !=null){
-      //actaulizar registro
-      this.RecursoService.updateRecursos(uploadImageData, this.data.rec_codigo)
-      .subscribe((data: any) => {
-        console.log(data);
-        this.dialogRef.close(1)
-      }, (error: any) => {
-        this.dialogRef.close(2);
-        console.log("error al guardar",error)
-      })
+    // llamamos al servicio guardar 
 
-    }else{
+    this.RecursoService.saveRecursos(uploadImageData)
+    .subscribe((data:any)=>{
+      this.dialogRef.close(1);
 
-    // llamamos al servicio guardar producto
-
-  this.RecursoService.saveRecursos(uploadImageData)
-    .subscribe((data: any) => {
-      console.log(data);
-      this.dialogRef.close(1)
-    }, (error: any) => {
+    },(error:any)=>{
       this.dialogRef.close(2);
-      console.log("error al guardar",error)
+      console.log("error al guardar",error);
     })
-  }
-
+    
   }
 
   onCancel() {
@@ -142,17 +131,49 @@ export class NewrecursoComponent implements OnInit {
     })
   }
 
+  getTipoFacultades() {
+    this.facultadesService.getFacultades().subscribe((data: any) => {
+      this.facultades = data.faculdatResponse.facultad;
+
+    }, (error: any) => {
+      console.log("Error consultar facultades ", error);
+    })
+  }
+
+  getTipoubicaciones() {
+
+    this.ubicacionesService.getUbicaciones().subscribe((data: any) => {
+      
+      this.ubicaciones=data.ubicacionResponse.ubicacion;
+
+    }, (error: any) => {
+      console.log("Error consultar Ubicaciones ", error);
+    })
+  }
+
+  hijos(id:string){
+    //console.log("hujos"+id);
+    this.tipoRecursoService.getRecursosHijos(id)
+    .subscribe((data: any) => {
+    // console.log("hijos: ",data);
+     this.procesarTipoCategoriaHijos(data);
+    })
+   }
+ 
+   procesarTipoCategoriaHijos(res: any){
+     const dataTipoRecursosHijos : TipoRecurso[] = [];
+     if( res.metadata[0].code == "00") {
+       let listHijos = res.tiporecursoResponse.tiporecurso;
+       listHijos.forEach((element : TipoRecurso) => {
+         dataTipoRecursosHijos.push(element);
+       });
+       //cargar los datos en el seelct hijos
+       this.tipoRecursoHijos = dataTipoRecursosHijos;
+     }
+   }
+
   updateForm(data: any) {
-    this.recursoForm = this.fb.group({
-      rec_codigo: [data.rec_codigo, Validators.required],
-      rectipo_codigo: [data.rectipo_codigo , Validators.required],
-      fac_codigo: [data.fac_codigo, Validators.required],
-      rec_capmax: [data.rec_capmax , Validators.required],
-      rectipo_padre: ['',Validators.required],
-      rec_nombre: [data.rec_nombre, Validators.required],
-      rec_decripcion: [data.rec_decripcion, Validators.required],
-      ubi_codigo: [data.ubi_codigo, Validators.required]
-    });
+    
   }
  
 }
