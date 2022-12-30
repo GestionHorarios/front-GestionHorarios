@@ -68,7 +68,13 @@ export class NewrecursoComponent implements OnInit {
       ubicacion: ['',Validators.required]
 
      
-    });
+    })
+
+    if(data !=null){
+      this.updateForm(data);
+      this.estadoFormulario = "Actualizar";
+
+    }
 
   }
 
@@ -82,6 +88,7 @@ export class NewrecursoComponent implements OnInit {
 
   onSave() {
     let data={
+      //rec_id: this.recursoForm.get('rec_id')?.value,
       rec_codigo: this.recursoForm.get('rec_codigo')?.value,
       tiporecurso: this.recursoForm.get('tiporecurso')?.value,
       rectipo_padre: this.recursoForm.get('rectipo_padre')?.value,
@@ -93,6 +100,7 @@ export class NewrecursoComponent implements OnInit {
 
     }
     const uploadImageData = new FormData();
+    //uploadImageData.append('rec_id', data.rec_id);
 
     uploadImageData.append('rec_codigo', data.rec_codigo);
     uploadImageData.append('rectipo_codigo', data.tiporecurso);
@@ -101,17 +109,31 @@ export class NewrecursoComponent implements OnInit {
     uploadImageData.append('rec_nombre', data.rec_nombre);
     uploadImageData.append('rec_decripcion', data.rec_decripcion);
     uploadImageData.append('ubi_codigo', data.ubicacion); 
+    
+    if(this.data !=null){
+      //actualizar recurso
 
+      this.RecursoService.updateRecursos(uploadImageData, this.data.rec_id)
+       .subscribe( (data: any )=>{
+          this.dialogRef.close(1);
+    
+        },(error:any)=>{
+          this.dialogRef.close(2);
+          console.log("error al editar ",error);
+        })
+    
+    }else{
     // llamamos al servicio guardar 
 
     this.RecursoService.saveRecursos(uploadImageData)
-    .subscribe((data:any)=>{
-      this.dialogRef.close(1);
+      .subscribe((data:any)=>{
+        this.dialogRef.close(1);
 
-    },(error:any)=>{
-      this.dialogRef.close(2);
-      console.log("error al guardar",error);
-    })
+      },(error:any)=>{
+        this.dialogRef.close(2);
+        console.log("error al guardar",error);
+      })
+  }
     
   }
 
@@ -173,7 +195,17 @@ export class NewrecursoComponent implements OnInit {
    }
 
   updateForm(data: any) {
-    
+
+    this.recursoForm = this.fb.group({
+      rec_codigo:[data.rec_codigo, Validators.required],
+      tiporecurso: [data.tiporecurso.rec_codigo, Validators.required],
+      rectipo_padre: ['', Validators.required],
+      facultad: [data.facultad.fac_codigo, Validators.required],
+      rec_capmax: [data.rec_capmax],
+      rec_nombre: [data.rec_nombre, Validators.required],
+      rec_decripcion: [data.rec_descripcion, Validators.required],
+      ubicacion: [data.ubicacion.ubi_codigo, Validators.required]
+    })
   }
  
 }

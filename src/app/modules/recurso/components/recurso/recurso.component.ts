@@ -45,9 +45,9 @@ export class RecursoComponent implements OnInit {
     let listRecursos= resp.recursoResponse.recurso;
 
     listRecursos.forEach((element: RecursoElement) => {
-      element.facultad = element.facultad.fac_codigo;
-      element.ubicacion = element.ubicacion.ubi_codigo;
-      element.tiporecurso = element.tiporecurso.rectipo_codigo;
+      //element.facultad = element.facultad.fac_codigo;
+      //element.ubicacion = element.ubicacion.ubi_codigo;
+      //element.tiporecurso = element.tiporecurso.rectipo_codigo;
       dataRecurso.push(element);
     });
 
@@ -70,6 +70,29 @@ export class RecursoComponent implements OnInit {
     
     }else if (result ==2){
       this.openSnackBar("se produjo un error al agrega recurso ", "Error");
+
+    }
+  });
+
+ }
+
+ edit(rec_id:number,rec_codigo:string, tiporecurso:any, facultad:any,rec_capmax:number,rec_nombre:string,rec_descripcion:string,ubicacion:any)
+ {
+
+  const dialogRef = this.dialog.open( NewrecursoComponent , {
+    width: '450px',
+    data:{rec_id: rec_id, rec_codigo: rec_codigo, tiporecurso: tiporecurso, facultad: facultad, rec_capmax: rec_capmax, rec_nombre: rec_nombre, rec_descripcion: rec_descripcion, ubicacion: ubicacion }
+  });
+
+  dialogRef.afterClosed().subscribe((result:any) => {
+
+    if(result==1){ 
+      this.openSnackBar("Recurso editado", "Exitosamente");
+      this.getRecursos();
+
+    
+    }else if (result ==2){
+      this.openSnackBar("se produjo un error al editar recurso ", "Error");
 
     }
   });

@@ -40,7 +40,7 @@
 
         <ng-container matColumnDef="facultad">
                 <th mat-header-cell *matHeaderCellDef> Cod_Facultad </th>
-                <td mat-cell *matCellDef="let element"> {{ element.facultad }} </td>
+                <td mat-cell *matCellDef="let element"> {{ element.facultad.fac_codigo }} </td>
             </ng-container>
 
 
@@ -55,7 +55,7 @@
              <!-- name column -->
              <ng-container matColumnDef="tiporecurso">
                 <th mat-header-cell *matHeaderCellDef> Tipo  Recurso </th>
-                <td mat-cell *matCellDef="let element"> {{ element.tiporecurso}} </td>
+                <td mat-cell *matCellDef="let element"> {{ element.tiporecurso.rectipo_codigo }} </td>
             </ng-container> 
 
             <ng-container matColumnDef="rec_nombre">
@@ -72,7 +72,7 @@
              <!-- description column -->
              <ng-container matColumnDef="ubicacion">
                 <th mat-header-cell *matHeaderCellDef> ubicacion </th>
-                <td mat-cell *matCellDef="let element"> {{ element.ubicacion }} </td>
+                <td mat-cell *matCellDef="let element"> {{ element.ubicacion.ubi_codigo }} </td>
             </ng-container>
 
 
@@ -82,9 +82,9 @@
                 <td mat-cell *matCellDef="let element; let i=index;">
                     <!--realizamos un edit para actualizar evento onclick-->
 
-                   <!--<button mat-icon-button color="accent" (click)="edit(element.rec_id ,element.rec_codigo, element.rec_tipo, element.fac_codigo, element.rec_capmax, element.rec_nombre, element.rec_decripcion, element.ubi_codigo)">
+                   <button mat-icon-button color="accent" (click)="edit(element.rec_id, element.rec_codigo, element.tiporecurso, element.facultad, element.rec_capmax, element.rec_nombre, element.rec_descripcion, element.ubicacion)">
                         <mat-icon aria-label="Edit">edit</mat-icon>
-                    </button>--> 
+                    </button>
                 <!--evento  para eliminar -->
                     <button mat-icon-button color="accent" (click)="delete(element.rec_id)">
                         <mat-icon aria-label="Delete">delete</mat-icon>
