@@ -124,23 +124,29 @@ export class RecursoComponent implements OnInit {
 
   }
 
-  buscar (termino: string){
-    if( termino.length === 0){
-      return this.getRecursos();
-    }
-    this.recursoService.getRecursosById(termino).subscribe((resp:any)=>{
-      this.processRecursosResponse(resp);
-
+  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar>{
+    return this.snackBar.open(message, action,{
+      duration: 2000
     })
+   }
+
+  buscarcod (rec_codigo: any){
+   if(rec_codigo.length === 0){
+    return this.getRecursos();
+   }
+
+   this.recursoService.getRecursoRec_Codigo(rec_codigo)
+   .subscribe( (resp: any) =>{
+    
+    this.processRecursosResponse(resp);
+   console.log(resp);
+
+   })
 
   }
 
 
- openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar>{
-  return this.snackBar.open(message, action,{
-    duration: 2000
-  })
- }
+
 
 }
 export interface RecursoElement{

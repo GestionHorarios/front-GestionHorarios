@@ -48,6 +48,14 @@ export class RecursoService {
     return this.http.put(endpoint, body);
 
   }
+
+  getRecursoRec_Codigo(cod_recurso:any){
+
+    const endpoint = `${base_url}/recursoscod/${cod_recurso}`;
+    return this.http.get(endpoint);
+
+    
+  }
   /**
    * Metodo que Elimina un recurso
    */
@@ -56,19 +64,5 @@ export class RecursoService {
     const endpoint = `${base_url}/recursos/ ${id}`;
     return this.http.delete(endpoint);
 
-  }
-
-  /**
-   *Buscar por id 
-   */
-      getRecursosById(id:any){
-
-    const endpoint = `${base_url}/recursos/ ${id}`;
-    return this.http.get(endpoint);
-
-    /**
-     * Facultades 
-     */
-    
   }
 }

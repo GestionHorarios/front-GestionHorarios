@@ -6,10 +6,10 @@
   <link rel="archivo.component.css" href="style.css">
 </head>
 <body>
-  <form action="/upload" method="post" enctype="multipart/form-data">
+  <form enctype="multipart/form-data" (submit)="submitForm()">
     <label for="excel-file">Seleccione un archivo de Excel:</label>
-    <input type="file" name="excel-file" id="excel-file" accept=".xls,.xlsx">
-    <input type="submit" value="Subir archivo">
-  </form>
+    <input type="file" name="excel-file" id="excel-file" accept=".xls,.xlsx" (change)="onFileSelected($event)" />
+    <input type="submit" value="Subir archivo" />
+  </form>  
 </body>
 </html>
