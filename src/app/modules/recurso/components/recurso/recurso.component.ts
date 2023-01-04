@@ -130,7 +130,7 @@ export class RecursoComponent implements OnInit {
     })
    }
 
-  buscarcod (rec_codigo: any){
+  buscarcod(rec_codigo: any){
    if(rec_codigo.length === 0){
     return this.getRecursos();
    }
