@@ -1,9 +1,10 @@
 import { emitDistinctChangesOnlyDefaultValue } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { stringToKeyValue } from '@angular/flex-layout/extended/style/style-transforms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { _MatTabGroupBase } from '@angular/material/tabs';
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 import { RecursoService } from 'src/app/modules/shared/services/recurso.service';
@@ -25,6 +26,8 @@ export class RecursoComponent implements OnInit {
   }
   displayedColumns: string[]=['rec_id','rec_codigo','facultad','rec_descripcion', 'rec_capmax','rec_nombre','tiporecurso','ubicacion', 'actions'];
   dataSource= new MatTableDataSource<RecursoElement>();
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
 
  getRecursos(){
@@ -52,6 +55,7 @@ export class RecursoComponent implements OnInit {
     });
 
     this.dataSource = new MatTableDataSource<RecursoElement>(dataRecurso);
+    this.dataSource.paginator = this.paginator;
   }
 
  }
@@ -131,7 +135,7 @@ export class RecursoComponent implements OnInit {
    }
 
   buscarcod(rec_codigo: any){
-   if(rec_codigo.length === 0){
+   if( rec_codigo.length === 0){
     return this.getRecursos();
    }
 
@@ -139,7 +143,7 @@ export class RecursoComponent implements OnInit {
    .subscribe( (resp: any) =>{
     
     this.processRecursosResponse(resp);
-   console.log(resp);
+  console.log(resp);
 
    })
 
