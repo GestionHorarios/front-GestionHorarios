@@ -207,5 +207,6 @@ export class NewrecursoComponent implements OnInit {
       ubicacion: [data.ubicacion.ubi_codigo, Validators.required]
     })
   }
+  
  
 }
