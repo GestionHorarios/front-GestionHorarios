@@ -8,6 +8,7 @@ import { FacultadModule } from '../facultad/facultad.module';
 import { UbicacionModule } from '../ubicacion/ubicacion.module';
 import { TipoRecursoComponent } from '../TipoRecurso/tipo-recurso/tipo-recurso.component';
 import { TipoRecursoModule } from '../TipoRecurso/tipo-recurso.module';
+import { AsignaccionModule } from '../asignaccion/asignaccion.module';
 
 
 
@@ -23,7 +24,8 @@ import { TipoRecursoModule } from '../TipoRecurso/tipo-recurso.module';
     RecursoModule,
     FacultadModule,
     UbicacionModule,
-    TipoRecursoModule
+    TipoRecursoModule,
+    AsignaccionModule
   
   ]
 })
