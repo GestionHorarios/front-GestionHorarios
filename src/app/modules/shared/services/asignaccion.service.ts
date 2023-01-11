@@ -14,7 +14,7 @@ export class AsignaccionService {
  
   getAsinaccion(){
 
-    const endpoint = `${base_url}/?`;
+    const endpoint = `${base_url}/recursos`;
     return  this.http.get(endpoint);
     
   }
