@@ -1,22 +1,73 @@
 <h2 mat mat-dialog-title> {{estadoFormulario}} </h2>
 
 <mat-dialog-content>
-    <form [formGroup]="recursoForm">
+  <form [formGroup]="recursoForm">
+    <div class="category-container">
 
-        <div class="category-container">
-            <mat-form-field>
-                <input matInput placeholder="codigo" formControlName="rec_codigo" required>
-            </mat-form-field>
-            <mat-form-field>
-                <textarea matInput placeholder="descripcion" formControlName= "rec_descripcion" required></textarea>
-            </mat-form-field>
-    
-            <mat-form-field>
-                <textarea matInput placeholder="tipo" formControlName="rec_tipo" required></textarea>
-            </mat-form-field>
 
-        </div>
-    </form>
+      <mat-form-field>
+        <input matInput placeholder="Codigo" formControlName="rec_codigo" required>
+      </mat-form-field>
+  
+     
+
+      <mat-form-field>
+        <mat-label>Tipo de Recurso</mat-label>
+        <mat-select  formControlName="rectipo_padre">
+          <mat-option *ngFor="let rectipopadre of tipoRecursosPadres" [value]="rectipopadre.rectipo_codigo" (click)="hijos(rectipopadre.rectipo_codigo)">
+            {{rectipopadre?.rectipo_codigo}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Categoria  de Recurso</mat-label>
+        <mat-select formControlName="tiporecurso">
+          <mat-option *ngFor="let tiporecurso of  tipoRecursoHijos" [value]="tiporecurso.rectipo_codigo">
+            {{tiporecurso.rectipo_codigo}}
+          </mat-option>
+        </mat-select>
+     
+
+     </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Cod_Facultad</mat-label>
+        <mat-select formControlName="facultad">
+          <mat-option *ngFor="let fac of  facultades" [value]="fac.fac_codigo">
+            {{fac.fac_codigo}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field  *ngIf="recursoForm.get('rectipo_padre')?.value === 'AMB'" >
+        <input matInput type="number" placeholder="capacidad maxima " formControlName="rec_capmax" />
+      </mat-form-field>
+
+      <mat-form-field >
+        <textarea matInput placeholder="Nombre" formControlName="rec_nombre" required ></textarea>
+      </mat-form-field>
+
+     
+
+      <mat-form-field>
+        <textarea matInput placeholder="descripcion" formControlName="rec_decripcion" required></textarea>
+      </mat-form-field>
+   
+
+    <mat-form-field>
+      <mat-label>Ubicacion</mat-label>
+        <mat-select formControlName="ubicacion">
+          <mat-option *ngFor="let ubi of  ubicaciones" [value]="ubi.ubi_codigo">
+            {{ubi.ubi_codigo}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+  </div>
+  </form>
+
 
     <mat-dialog-actions>
         <button mat-button color="primary" (click)="onSave()" [disabled]="recursoForm.invalid">
@@ -30,3 +81,4 @@
     </mat-dialog-actions>
 
 </mat-dialog-content>
+

@@ -18,7 +18,14 @@ export class RecursoService {
 
   getRecursos(){
 
-    const enpoint =`${base_url}/recurso`;
+    const enpoint =`${base_url}/recursos`;
+    return this.http.get(enpoint);
+
+  }
+
+  getFacultades(){
+
+    const enpoint =`${base_url}/facultades`;
     return this.http.get(enpoint);
 
   }
@@ -28,7 +35,7 @@ export class RecursoService {
    */
 
   saveRecursos(body:any){
-    const endpoint = `${base_url}/recursos`;
+    const endpoint =`${base_url}/recursos`;
     return this.http.post(endpoint,body);
   }
 
@@ -41,6 +48,14 @@ export class RecursoService {
     return this.http.put(endpoint, body);
 
   }
+
+  getRecursoRec_Codigo(cod_recurso:any){
+
+    const endpoint = `${base_url}/recursoscod/${cod_recurso}`;
+    return this.http.get(endpoint);
+
+    
+  }
   /**
    * Metodo que Elimina un recurso
    */
@@ -48,16 +63,6 @@ export class RecursoService {
 
     const endpoint = `${base_url}/recursos/ ${id}`;
     return this.http.delete(endpoint);
-
-  }
-
-  /**
-   *Buscar por id 
-   */
-      getRecursosById(id:any){
-
-    const endpoint = `${base_url}/recursos/ ${id}`;
-    return this.http.get(endpoint);
 
   }
 }

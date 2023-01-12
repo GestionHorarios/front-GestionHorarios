@@ -1,9 +1,10 @@
 import { emitDistinctChangesOnlyDefaultValue } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { stringToKeyValue } from '@angular/flex-layout/extended/style/style-transforms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { _MatTabGroupBase } from '@angular/material/tabs';
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 import { RecursoService } from 'src/app/modules/shared/services/recurso.service';
@@ -23,8 +24,10 @@ export class RecursoComponent implements OnInit {
     this.getRecursos();
     
   }
-  displayedColumns: string[]=['rec_id','rec_codigo','rec_descripcion','rec_tipo', 'actions'];
+  displayedColumns: string[]=['rec_id','rec_codigo','facultad','rec_descripcion', 'rec_capmax','rec_nombre','tiporecurso','ubicacion', 'actions'];
   dataSource= new MatTableDataSource<RecursoElement>();
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
 
  getRecursos(){
@@ -45,10 +48,14 @@ export class RecursoComponent implements OnInit {
     let listRecursos= resp.recursoResponse.recurso;
 
     listRecursos.forEach((element: RecursoElement) => {
+      //element.facultad = element.facultad.fac_codigo;
+      //element.ubicacion = element.ubicacion.ubi_codigo;
+      //element.tiporecurso = element.tiporecurso.rectipo_codigo;
       dataRecurso.push(element);
     });
 
     this.dataSource = new MatTableDataSource<RecursoElement>(dataRecurso);
+    this.dataSource.paginator = this.paginator;
   }
 
  }
@@ -72,28 +79,30 @@ export class RecursoComponent implements OnInit {
   });
 
  }
- edit (rec_id:number, rec_codigo: string, rec_descripcion:string, rec_tipo:string){
+
+ edit(rec_id:number,rec_codigo:string, tiporecurso:any, facultad:any,rec_capmax:number,rec_nombre:string,rec_descripcion:string,ubicacion:any)
+ {
 
   const dialogRef = this.dialog.open( NewrecursoComponent , {
     width: '450px',
-    data:{rec_id: rec_id, rec_codigo:rec_codigo, rec_descripcion:rec_descripcion, rec_tipo: rec_tipo}
+    data:{rec_id: rec_id, rec_codigo: rec_codigo, tiporecurso: tiporecurso, facultad: facultad, rec_capmax: rec_capmax, rec_nombre: rec_nombre, rec_descripcion: rec_descripcion, ubicacion: ubicacion }
   });
 
   dialogRef.afterClosed().subscribe((result:any) => {
 
     if(result==1){ 
-      this.openSnackBar("Recurso Actualizada", "Exitosamente");
+      this.openSnackBar("Recurso editado", "Exitosamente");
       this.getRecursos();
 
     
     }else if (result ==2){
-      this.openSnackBar("se produjo un error al actualizar recurso ", "Error");
+      this.openSnackBar("se produjo un error al editar recurso ", "Error");
 
     }
   });
 
-    
-}
+ }
+ 
   delete(rec_id: any){
     const dialogRef = this.dialog.open( ConfirmComponent , {
       width: '450px',
@@ -119,28 +128,39 @@ export class RecursoComponent implements OnInit {
 
   }
 
-  buscar (termino: string){
-    if( termino.length === 0){
-      return this.getRecursos();
-    }
-    this.recursoService.getRecursosById(termino).subscribe((resp:any)=>{
-      this.processRecursosResponse(resp);
-
+  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar>{
+    return this.snackBar.open(message, action,{
+      duration: 2000
     })
+   }
+
+  buscarcod(rec_codigo: any){
+   if( rec_codigo.length === 0){
+    return this.getRecursos();
+   }
+
+   this.recursoService.getRecursoRec_Codigo(rec_codigo)
+   .subscribe( (resp: any) =>{
+    
+    this.processRecursosResponse(resp);
+  console.log(resp);
+
+   })
 
   }
 
 
- openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar>{
-  return this.snackBar.open(message, action,{
-    duration: 2000
-  })
- }
+
 
 }
 export interface RecursoElement{
   rec_id: number;
   rec_codigo: string;
   rec_descripcion: string;
+  facultad: any;
+  tiporecurso: any;
   rec_tipo:string;
+  rec_capmax: string;
+  ubicacion: any;
+  rec_nombre: string;
 }

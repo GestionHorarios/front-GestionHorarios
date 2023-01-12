@@ -4,6 +4,12 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { RecursoModule } from '../recurso/recurso.module';
+import { FacultadModule } from '../facultad/facultad.module';
+import { UbicacionModule } from '../ubicacion/ubicacion.module';
+import { TipoRecursoComponent } from '../TipoRecurso/tipo-recurso/tipo-recurso.component';
+import { TipoRecursoModule } from '../TipoRecurso/tipo-recurso.module';
+import { AsignaccionModule } from '../asignaccion/asignaccion.module';
+
 
 
 
@@ -15,7 +21,12 @@ import { RecursoModule } from '../recurso/recurso.module';
   imports: [
     CommonModule,
     SharedModule,
-    RecursoModule
+    RecursoModule,
+    FacultadModule,
+    UbicacionModule,
+    TipoRecursoModule,
+    AsignaccionModule
+  
   ]
 })
 export class DashboardModule { }
