@@ -1,0 +1,56 @@
+<h2 mat mat-dialog-title> {{estadoFormulario}} Nueva Asignaccion </h2>
+
+<mat-dialog-content>
+  <form [formGroup]="AsignaccionForm">
+    <div class="category-container">
+
+      <mat-form-field>
+        <mat-label>elija el codigo de la facultad</mat-label>
+        <mat-select formControlName="facultad">
+          <mat-option *ngFor="let fac of  facultades" [value]="fac.fac_codigo" (click)="ambientes(fac.fac_codigo)" (click)="instrumentos(fac.fac_codigo)">
+            {{fac.fac_codigo}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+     
+
+      <mat-form-field>
+        <mat-label>Tipo de Ambiente</mat-label>
+        <mat-select formControlName="hijos_recurso">
+          <mat-option *ngFor="let hijo of  tipoRecursoHijos" [value]="hijo.rec_id" >
+            {{hijo.rec_codigo}}
+          </mat-option>
+        </mat-select>
+     
+
+     </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Tipo de Instrumento </mat-label>
+        <mat-select formControlName="recurso_hijo">
+          <mat-option *ngFor="let recurso of  tipoRecursoI" [value]="recurso.rec_id">
+            {{recurso.rec_codigo}}
+          </mat-option>
+        </mat-select>
+     
+
+     </mat-form-field>
+     
+    </div>
+
+
+  </form>
+
+
+    <mat-dialog-actions>
+        <button mat-button color="primary"  (click)="onSave()"  [disabled]="AsignaccionForm.invalid">
+            <mat-icon>save</mat-icon> Guardar
+
+        </button>
+
+        <button mat-button color="primary" (click)="onCancel()">
+            <mat-icon>cancel</mat-icon>Cancelar
+        </button>
+    </mat-dialog-actions>
+
+</mat-dialog-content>

@@ -29,3 +29,8 @@ mat-form-field {
    
     align-content: center;
 }
+
+.colorm{
+    background-image: url(/src/assets/uni.jpg);
+    background-position: left bottom;
+}

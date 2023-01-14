@@ -18,4 +18,24 @@ export class AsignaccionService {
     return  this.http.get(endpoint);
     
   }
+
+  saveAsignaccion(body:any){
+    const endpoint = `${base_url}/recursos/asignar`;
+    return  this.http.post(endpoint,body);
+
+  }
+
+  getRecursosAmbientes(fac_codigo:string){
+    const endpoint = `${base_url}/recursos/facaudisalasalon/${fac_codigo}`;
+    return this.http.get(endpoint);
+  }
+
+  getRecursosInsTec(fac_codigo:string)
+  {
+    const endpoint = `${base_url}/recursos/facudifaudisalasalon/${fac_codigo}`;
+    return this.http.get(endpoint);
+
+  }
+
+
 }

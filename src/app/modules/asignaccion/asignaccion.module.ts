@@ -4,12 +4,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 import { AsignaccionComponent } from './asignaccion/asignaccion.component';
+import { NewAsignaccionComponent } from './new-asignaccion/new-asignaccion.component';
 
 
 
 @NgModule({
   declarations: [
-    AsignaccionComponent
+    AsignaccionComponent,
+    NewAsignaccionComponent
   ],
   imports: [
     CommonModule,
