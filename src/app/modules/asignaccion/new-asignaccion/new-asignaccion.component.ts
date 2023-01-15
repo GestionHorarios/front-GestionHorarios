@@ -65,7 +65,7 @@ export class NewAsignaccionComponent implements OnInit {
 
       idrecurso: this.AsignaccionForm.get('hijos_recurso')?.value,
       
-      idrecuroA: this.AsignaccionForm.get('recuro_hijo')?.value
+      idrecuroA: this.AsignaccionForm.get('recurso_hijo')?.value
 
     }
     const uploadImageDate1 = new FormData();
