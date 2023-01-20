@@ -62,7 +62,7 @@ export class NewrecursoComponent implements OnInit {
       tiporecurso: ['',Validators.required],
       rectipo_padre: ['',Validators.required],
       facultad: ['',Validators.required],
-      rec_capmax: [''],
+      rec_capmax: ['', Validators.min(0)],
       rec_nombre: ['',Validators.required],
       rec_decripcion: ['',Validators.required],
       ubicacion: ['',Validators.required]
