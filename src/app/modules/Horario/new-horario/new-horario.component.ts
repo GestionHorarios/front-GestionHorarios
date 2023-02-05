@@ -18,8 +18,8 @@ export interface Recurso {
 
 export interface Asignaturacurso{
 
-  cur_nombre:string;
-  cur_id:number;
+  asig_nombre:string;
+  asig_codigo:string;
 
 }
 
@@ -81,12 +81,7 @@ export class NewHorarioComponent implements OnInit {
         dia:['', Validators.required],
         hinicio:['', Validators.required],
         hfin:['', Validators.required]
-
-
-
        })
-
-
   }
 
   ngOnInit(): void {
@@ -103,45 +98,19 @@ export class NewHorarioComponent implements OnInit {
   }
 
   ambientes(id:string){
-    //console.log("hujos"+id);
+    console.log("codigo ambiente "+id)
     this.AsignaccionService.getRecursosAmbientes(id)
     .subscribe((data: any) => {
-    console.log("hijos: ",data);
+    console.log("recursos por facultad: ",data);
    this.procesarTipoAmbientes(data);
     })
    }
 
-   cursos(id:string){
-
-     //console.log("hujos"+id);
-     this.HorarioService.getCursos(id)
-     .subscribe((data: any) => {
-     console.log("hijos: ",data);
-    this.procesarCursos(data);
-     })
-
-
-   }
-
-   procesarCursos(res: any){
-    const dataTipocursosHijos : curso[] = [];
-    if( res.metadata[0].code == "00") {
-      let listHijos = res.cursoResponse.curso;
-      listHijos.forEach((element : curso) => {
-        
-        dataTipocursosHijos.push(element);
-      });
-      //cargar los datos en el seelct hijos
-      this.tipoCursoHijos = dataTipocursosHijos;
-    }
-  }
-   
    procesarTipoAmbientes(res: any){
     const dataTipoRecursosHijos : Recurso[] = [];
     if( res.metadata[0].code == "00") {
       let listHijos = res.recursoResponse.recurso;
       listHijos.forEach((element : Recurso) => {
-        
         dataTipoRecursosHijos.push(element);
       });
       //cargar los datos en el seelct hijos
@@ -149,27 +118,44 @@ export class NewHorarioComponent implements OnInit {
     }
   }
 
-  cursosAsig(id:string){
-
-    //console.log("hujos"+id);
-    this.HorarioService.getCursosAsig(id)
+  AsigFacul(id:string){
+    this.HorarioService.getAsignatura(id)
     .subscribe((data: any) => {
-    console.log("hijos: ",data);
-   this.procesarCursosAsig(data);
+    //console.log("Asignaturas: ",data);
+   this.procesarAsigFacultad(data);
     })
-
-
   }
-  procesarCursosAsig(res: any){
+
+  procesarAsigFacultad(res: any){
     const dataTipocursosAsigHijos : Asignaturacurso[] = [];
     if( res.metadata[0].code == "00") {
-      let listHijos = res.cursoResponse.cursoAsig;
+      let listHijos = res.asignaturaResponse.asignatura;
       listHijos.forEach((element : Asignaturacurso) => {
         
         dataTipocursosAsigHijos.push(element);
       });
       //cargar los datos en el seelct hijos
       this.tipCursoAsigHijos = dataTipocursosAsigHijos;
+    }
+  }
+
+  CursoAsig(id:string){
+    this.HorarioService.getCursosPorAsig(id)
+    .subscribe((data: any) => {
+      //console.log("Cusrsos: ",data);
+      this.procesarCursosPorAsignatura(data);
+    })
+  }
+
+  procesarCursosPorAsignatura(res: any){
+    const dataTipocursosHijos : curso[] = [];
+    if( res.metadata[0].code == "00") {
+      let listHijos = res.cursoResponse.cursoAsig;
+      listHijos.forEach((element : curso) => {
+        dataTipocursosHijos.push(element);
+      });
+      //cargar los datos en el seelct hijos
+      this.tipoCursoHijos = dataTipocursosHijos;
     }
   }
 

@@ -45,7 +45,7 @@ export class RecursoComponent implements OnInit {
   const dataRecurso: RecursoElement[]=[];
 
   if( resp.metadata[0].code == "00"){
-    let listRecursos= resp.recursoResponse.recurso;
+    let listRecursos= resp.recursoResponse.recursoDto;
 
     listRecursos.forEach((element: RecursoElement) => {
       //element.facultad = element.facultad.fac_codigo;
@@ -80,12 +80,12 @@ export class RecursoComponent implements OnInit {
 
  }
 
- edit(rec_id:number,rec_codigo:string, tiporecurso:any, facultad:any,rec_capmax:number,rec_nombre:string,rec_descripcion:string,ubicacion:any)
+ edit(rec_id:number,rec_codigo:string, rectipo_codigo:any, fac_codigo:any,rec_capmax:number,rec_nombre:string,rec_descripcion:string,ubi_codigo:any)
  {
 
   const dialogRef = this.dialog.open( NewrecursoComponent , {
     width: '450px',
-    data:{rec_id: rec_id, rec_codigo: rec_codigo, tiporecurso: tiporecurso, facultad: facultad, rec_capmax: rec_capmax, rec_nombre: rec_nombre, rec_descripcion: rec_descripcion, ubicacion: ubicacion }
+    data:{rec_id: rec_id, rec_codigo: rec_codigo, rectipo_codigo: rectipo_codigo, fac_codigo: fac_codigo, rec_capmax: rec_capmax, rec_nombre: rec_nombre, rec_descripcion: rec_descripcion, ubi_codigo: ubi_codigo }
   });
 
   dialogRef.afterClosed().subscribe((result:any) => {
@@ -157,10 +157,10 @@ export interface RecursoElement{
   rec_id: number;
   rec_codigo: string;
   rec_descripcion: string;
-  facultad: any;
-  tiporecurso: any;
+  fac_codigo: any;
+  rectipo_codigo: any;
   rec_tipo:string;
   rec_capmax: string;
-  ubicacion: any;
+  ubi_codigo: any;
   rec_nombre: string;
 }

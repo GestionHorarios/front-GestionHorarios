@@ -198,13 +198,13 @@ export class NewrecursoComponent implements OnInit {
 
     this.recursoForm = this.fb.group({
       rec_codigo:[data.rec_codigo, Validators.required],
-      tiporecurso: [data.tiporecurso.rec_codigo, Validators.required],
+      tiporecurso: [data.rec_codigo, Validators.required],
       rectipo_padre: ['', Validators.required],
-      facultad: [data.facultad.fac_codigo, Validators.required],
+      facultad: [data.fac_codigo, Validators.required],
       rec_capmax: [data.rec_capmax],
       rec_nombre: [data.rec_nombre, Validators.required],
       rec_decripcion: [data.rec_descripcion, Validators.required],
-      ubicacion: [data.ubicacion.ubi_codigo, Validators.required]
+      ubicacion: [data.ubi_codigo, Validators.required]
     })
   }
   

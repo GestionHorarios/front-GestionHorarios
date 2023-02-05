@@ -23,13 +23,13 @@ export class HorarioService {
     return this.http.post(endpoint,body);
   }
 
-  getCursos(fac_codigo:string){
-    const endpoint = `${base_url}/cursos/facultad/${fac_codigo}`;
+  getCursosPorAsig(asig_cod:string){
+    const endpoint = `${base_url}/cursos/asignatura/${asig_cod}`;
     return this.http.get(endpoint);
   }
 
-  getCursosAsig(asig_cod:string){
-    const endpoint = `${base_url}/cursos/asignatura/${asig_cod}`;
+  getAsignatura(fac_cod:string){
+    const endpoint = `${base_url}/asignaturas/facultad/${fac_cod}`;
     return this.http.get(endpoint);
   }
 }

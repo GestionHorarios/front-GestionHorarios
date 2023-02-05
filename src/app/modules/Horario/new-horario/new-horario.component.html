@@ -8,7 +8,7 @@
         <mat-form-field>
             <mat-label>elija el codigo de la facultad</mat-label>
             <mat-select formControlName="facultad">
-              <mat-option *ngFor="let fac of  facultades" [value]="fac.fac_codigo" (click)="ambientes(fac.fac_codigo)"   (click)="cursos(fac.fac_codigo)"  >
+              <mat-option *ngFor="let fac of  facultades" [value]="fac.fac_codigo" (click)="ambientes(fac.fac_codigo)"   (click)="AsigFacul(fac.fac_codigo)"  >
                 {{fac.fac_codigo}}
               </mat-option>
             </mat-select>
@@ -17,8 +17,8 @@
       <mat-form-field>
         <mat-label>elija el codigo del Ambiente </mat-label>
         <mat-select formControlName="rec_id">
-            <mat-option *ngFor="let hijo of  tipoRecursoHijos" [value]="hijo.rec_id" >
-                {{hijo.rec_codigo}}
+            <mat-option *ngFor="let recurso of  tipoRecursoHijos" [value]="recurso.rec_id" >
+                {{recurso.rec_codigo}}
               </mat-option>
         </mat-select>
       </mat-form-field>
@@ -27,8 +27,8 @@
 
         <mat-label>elija la Asignatura </mat-label>
         <mat-select formControlName="asignatura">
-          <mat-option *ngFor="let curp of  tipoCursoHijos" [value]="curp.asignatura.asig_codigo" (click)="cursosAsig(curp.asignatura.asig_codigo)">
-            {{curp.asignatura.asig_nombre}}
+          <mat-option *ngFor="let asig of  tipCursoAsigHijos" [value]="asig.asig_nombre" (click)="CursoAsig(asig.asig_codigo)" >
+            {{asig.asig_nombre}}
           </mat-option>
         </mat-select>
 
@@ -39,7 +39,7 @@
       <mat-form-field>
         <mat-label>Curso Id</mat-label>
         <mat-select formControlName="curso_id">
-          <mat-option *ngFor="let hijo of  tipCursoAsigHijos" [value]="hijo.cur_id" >
+          <mat-option *ngFor="let hijo of  tipoCursoHijos" [value]="hijo.cur_id" >
             {{hijo.cur_nombre}}
           </mat-option>
         </mat-select>

@@ -43,7 +43,7 @@ export class AsignaccionComponent implements OnInit {
   processAsignaccionResponse(resp: any){
     const dateAsignacion: asignacionElement[]=[];
     if( resp.metadata[0].code == "00"){
-      let listRecursos= resp.recursoResponse.recurso;
+      let listRecursos= resp.recursoResponse.recursoDto;
       let listRecursoshijos: any[]=[];
   
       listRecursos.forEach((element: asignacionElement) => {
