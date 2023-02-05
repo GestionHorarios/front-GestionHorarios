@@ -99,7 +99,7 @@ export class NewHorarioComponent implements OnInit {
 
   ambientes(id:string){
     console.log("codigo ambiente "+id)
-    this.AsignaccionService.getRecursosAmbientes(id)
+    this.AsignaccionService.getRecursosAmbientes('faca')
     .subscribe((data: any) => {
     console.log("recursos por facultad: ",data);
    this.procesarTipoAmbientes(data);
