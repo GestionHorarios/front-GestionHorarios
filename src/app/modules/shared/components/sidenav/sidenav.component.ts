@@ -16,7 +16,7 @@ export class SidenavComponent implements OnInit {
     {name:"Recursos", route:"recurso", icon:"add_circle"},
     {name:"Subir Archivo", route:"archivo", icon:"note_add"},
     {name:"Asignar Recursos", route:"Asignaccion", icon:"add"},
-    {name:"Programar  Cursos", route:"home", icon:"calendar_today"}
+    {name:"Programar  Cursos", route:"Horario", icon:"calendar_today"}
 
   ]
   constructor(media: MediaMatcher) {

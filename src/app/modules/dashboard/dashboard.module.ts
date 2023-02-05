@@ -9,6 +9,7 @@ import { UbicacionModule } from '../ubicacion/ubicacion.module';
 import { TipoRecursoComponent } from '../TipoRecurso/tipo-recurso/tipo-recurso.component';
 import { TipoRecursoModule } from '../TipoRecurso/tipo-recurso.module';
 import { AsignaccionModule } from '../asignaccion/asignaccion.module';
+import { HorarioModule } from '../Horario/horario.module';
 
 
 
@@ -25,7 +26,8 @@ import { AsignaccionModule } from '../asignaccion/asignaccion.module';
     FacultadModule,
     UbicacionModule,
     TipoRecursoModule,
-    AsignaccionModule
+    AsignaccionModule,
+    HorarioModule
   
   ]
 })

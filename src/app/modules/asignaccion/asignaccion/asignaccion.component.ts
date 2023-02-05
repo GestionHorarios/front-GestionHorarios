@@ -5,7 +5,7 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 import { MatTableDataSource } from '@angular/material/table';
 import { AsignaccionService } from 'src/app/modules/shared/services/asignaccion.service';
 import { NewrecursoComponent } from '../../recurso/components/newrecurso/newrecurso.component';
-import { NewAsignaccionComponent } from '../new-asignaccion/new-asignaccion.component';
+import { NewAsignaccionComponent, Recurso } from '../new-asignaccion/new-asignaccion.component';
 
 
 
@@ -88,8 +88,30 @@ export class AsignaccionComponent implements OnInit {
       duration: 2000
     })
    }
+        edit(rep_id:any, recursohijo:any ){
 
+          const dialogRef = this.dialog.open( NewAsignaccionComponent , {
+            width: '450px',
+            data:{rep_id, recursohijo}
+
+
+           });
+           dialogRef.afterClosed().subscribe((result:any) => {
+  
+            if(result==1){ 
+              this.openSnackBar("Asignaccion  desasignada", "Exitosamente");
+              this.getAsignaccion();
+        
+            
+            }else if (result ==2){
+              this.openSnackBar("se produjo un error al  realizar la Asignaccion ", "Error");
+        
+            }
+          });
  
+
+
+}
 
 
 }
@@ -104,3 +126,4 @@ export interface asignacionElement {
  recurso_descripcion:any;
 
 }
+

@@ -1,0 +1,103 @@
+<h2 mat mat-dialog-title> {{estadoFormulario}} Nuevo Horario </h2>
+
+<mat-dialog-content>
+  <form [formGroup]="HorarioForm">
+    <div class="category-container">
+
+
+        <mat-form-field>
+            <mat-label>elija el codigo de la facultad</mat-label>
+            <mat-select formControlName="facultad">
+              <mat-option *ngFor="let fac of  facultades" [value]="fac.fac_codigo" (click)="ambientes(fac.fac_codigo)"   (click)="cursos(fac.fac_codigo)"  >
+                {{fac.fac_codigo}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>elija el codigo del Ambiente </mat-label>
+        <mat-select formControlName="rec_id">
+            <mat-option *ngFor="let hijo of  tipoRecursoHijos" [value]="hijo.rec_id" >
+                {{hijo.rec_codigo}}
+              </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <mat-label>elija la Asignatura </mat-label>
+        <mat-select formControlName="asignatura">
+          <mat-option *ngFor="let curp of  tipoCursoHijos" [value]="curp.asignatura.asig_codigo" (click)="cursosAsig(curp.asignatura.asig_codigo)">
+            {{curp.asignatura.asig_nombre}}
+          </mat-option>
+        </mat-select>
+
+       
+        
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Curso Id</mat-label>
+        <mat-select formControlName="curso_id">
+          <mat-option *ngFor="let hijo of  tipCursoAsigHijos" [value]="hijo.cur_id" >
+            {{hijo.cur_nombre}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+      
+
+     <mat-form-field>
+       <mat-label>Dia </mat-label>
+       <mat-select formControlName="dia"  >
+         <mat-option *ngFor="let dia of  dias" [value]="dia" >
+           {{dia}}
+         </mat-option>
+       </mat-select>
+    
+       
+
+    </mat-form-field>
+
+    <mat-form-field>
+       <mat-label>Hora Inicio </mat-label>
+       <mat-select formControlName="hinicio"  >
+         <mat-option *ngFor="let hc of  horas" [value]="hc" >
+           {{hc}}
+         </mat-option>
+       </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field>
+       <mat-label>Hora Fin </mat-label>
+       <mat-select formControlName="hfin"  >
+         <mat-option *ngFor="let hf of  horas" [value]="hf" >
+           {{hf}}
+         </mat-option>
+       </mat-select>
+    
+       
+
+    </mat-form-field>
+
+     
+    </div>
+
+
+  </form>
+
+
+  <mat-dialog-actions>
+    <button mat-button color="primary" (click)="onSave()" [disabled]="HorarioForm.invalid">
+        <mat-icon>save</mat-icon> Guardar
+
+    </button>
+
+    <button mat-button color="primary" (click)="onCancel()">
+        <mat-icon>cancel</mat-icon>Cancelar
+    </button>
+</mat-dialog-actions>
+
+</mat-dialog-content>

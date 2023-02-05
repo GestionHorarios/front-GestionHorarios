@@ -35,6 +35,8 @@ export class NewAsignaccionComponent implements OnInit {
   tipoRecursoHijos:Recurso[]=[];
   tipoRecursoI:Recurso[]=[];
   facultades: facultadeselement[]=[];
+   
+
 
   constructor(
     private fb: FormBuilder,
@@ -50,10 +52,16 @@ export class NewAsignaccionComponent implements OnInit {
     this.estadoFormulario="Agregar";
 
     this.AsignaccionForm = this.fb.group({
-      facultad:['',],
+      facultad:['',Validators.required],
       hijos_recurso: ['',Validators.required],
       recurso_hijo: ['',Validators.required],
     })
+
+    if(data!=null)
+    {
+      this.updateform(data);
+      this.estadoFormulario="desasignar"
+    }
   }
 
   ngOnInit(): void {
@@ -73,14 +81,30 @@ export class NewAsignaccionComponent implements OnInit {
     uploadImageDate1.append('rec_codigo', data.idrecurso);
     uploadImageDate1.append('rec_codigo2', data.idrecuroA);
 
-    this.AsignaccionService.saveAsignaccion(uploadImageDate1)
-    .subscribe((data:any)=>{
-      this.dialogRef.close(1);
 
-    },(error:any)=>{
-      this.dialogRef.close(2);
-      console.log("error al guardar",error);
+    if(this.data != null){
+
+      this.AsignaccionService.updateAsignacion(uploadImageDate1)
+      .subscribe((data: any) => {
+        console.log("hijos: ",data);
+       this.procesarTipoAmbientes(data);
+        })
+
+
+    }else{
+          this.AsignaccionService.saveAsignaccion(uploadImageDate1)
+        .subscribe((data:any)=>{
+          this.dialogRef.close(1);
+
+        },(error:any)=>{
+          this.dialogRef.close(2);
+          console.log("error al guardar",error);
     })
+
+
+    }
+
+    
   }
 
   onCancel(){
@@ -153,6 +177,17 @@ export class NewAsignaccionComponent implements OnInit {
       //cargar los datos en el seelct hijos
       this.tipoRecursoI = dataTipoRecursosHijos;
     }
+  }
+
+
+  updateform(data:any)
+  {
+    this.AsignaccionForm = this.fb.group({
+      facultad:[''],
+      hijos_recurso: [data.rec_id],
+      recurso_hijo: [data.rec_id],
+    })
+
   }
 
 }

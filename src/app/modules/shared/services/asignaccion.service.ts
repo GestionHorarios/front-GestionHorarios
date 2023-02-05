@@ -38,4 +38,12 @@ export class AsignaccionService {
   }
 
 
+  updateAsignacion(body: any){
+
+    const endpoint = `${base_url}/recursos/desasignar/`;
+    return this.http.post(endpoint,body);
+  }
+
+
+
 }
