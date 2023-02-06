@@ -158,7 +158,7 @@ export class HorarioComponent implements OnInit {
     this.recursoService.getRecursoRec_Codigo(rec_codigo)
     .subscribe( (resp: any) =>{
      
-     this.processRecursosResponse(resp);
+     this.processRecursosResponse2(resp);
    console.log(resp);
  
     })
@@ -174,6 +174,25 @@ export class HorarioComponent implements OnInit {
     },(error)=>{
       console.log("error", error);
     })
+   }
+
+   processRecursosResponse2( resp:any){
+    const dataRecurso: RecursoElement[]=[];
+  
+    if( resp.metadata[0].code == "00"){
+      let listRecursos= resp.recursoResponse.recurso;
+  
+      listRecursos.forEach((element: RecursoElement) => {
+        //element.facultad = element.facultad.fac_codigo;
+        //element.ubicacion = element.ubicacion.ubi_codigo;
+        //element.tiporecurso = element.tiporecurso.rectipo_codigo;
+        dataRecurso.push(element);
+      });
+  
+      this.dataSource = new MatTableDataSource<RecursoElement>(dataRecurso);
+      this.dataSource.paginator = this.paginator;
+    }
+  
    }
 
 
