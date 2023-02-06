@@ -32,4 +32,13 @@ export class HorarioService {
     const endpoint = `${base_url}/asignaturas/facultad/${fac_cod}`;
     return this.http.get(endpoint);
   }
+
+  deleteHorario(id:any){
+
+    const endpoint = `${base_url}/horario/desasignarHorDeRecur/${id}`;
+    return this.http.delete(endpoint);
+
+  }
+
+
 }

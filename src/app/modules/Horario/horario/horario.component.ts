@@ -11,6 +11,7 @@ import { HorarioService } from '../../shared/services/horario.service';
 import { NewHorarioComponent } from '../new-horario/new-horario.component';
 import { DOCUMENT } from '@angular/common';
 import { RecursoService } from '../../shared/services/recurso.service';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 
 export interface facultadeselement{
 
@@ -194,6 +195,27 @@ export class HorarioComponent implements OnInit {
     }
   
    }
+
+   delete(rec_id: any){
+    const dialogRef = this.dialog.open( ConfirmComponent , {
+      width: '450px',
+      data:{rec_id: rec_id, module:"horario"}
+    });
+
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+  
+      if(result==1){ 
+        this.openSnackBar("HORARIO DE RECURSO ELIMINADO", "Exitosamente");
+        this.getRecursos();
+  
+      
+      }else if (result ==2){
+        this.openSnackBar("se produjo un error al actualizar recurso ", "Error");
+  
+      }
+    });
+  }
 
 
 }

@@ -106,7 +106,7 @@ export class RecursoComponent implements OnInit {
   delete(rec_id: any){
     const dialogRef = this.dialog.open( ConfirmComponent , {
       width: '450px',
-      data:{rec_id: rec_id}
+      data:{rec_id: rec_id, module:"recurso"}
     });
 
   
