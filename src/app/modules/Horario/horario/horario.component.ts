@@ -1,13 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { NewrecursoComponent } from '../../recurso/components/newrecurso/newrecurso.component';
 import { AsignaccionService } from '../../shared/services/asignaccion.service';
 import { FacultadService } from '../../shared/services/facultad.service';
 import { HorarioService } from '../../shared/services/horario.service';
 import { NewHorarioComponent } from '../new-horario/new-horario.component';
+import { DOCUMENT } from '@angular/common';
 
 export interface facultadeselement{
 
@@ -26,7 +28,7 @@ export class HorarioComponent implements OnInit {
   facultades: facultadeselement[]=[];
   tipoRecursoHijos:Recurso[]=[];
 
-  constructor(private horarioService: HorarioService, 
+  constructor(@Inject(DOCUMENT) private document: Document,private horarioService: HorarioService, 
     private AsignaccionService: AsignaccionService,
     private FacultadService: FacultadService,
     public dialog: MatDialog, private snackBar: MatSnackBar,
@@ -51,6 +53,10 @@ export class HorarioComponent implements OnInit {
 
   }
 
+  llamarHorario(rec_codigo:string) : void{
+    //this.document.location.href = "http://localhost:8080/horario/vista/"+rec_codigo;
+    window.open("http://localhost:8080/horario/vista/"+rec_codigo, "_blank");
+  }
   processRecursosResponse( resp:any){
     const dataRecurso: RecursoElement[]=[];
   
