@@ -211,7 +211,7 @@ export class HorarioComponent implements OnInit {
   
       
       }else if (result ==2){
-        this.openSnackBar("se produjo un error al actualizar recurso ", "Error");
+        this.openSnackBar("se produjo un error al Eliminar  Horario", "Error");
   
       }
     });
