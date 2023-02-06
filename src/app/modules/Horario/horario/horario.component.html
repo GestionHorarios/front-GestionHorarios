@@ -5,7 +5,7 @@
         <div>
             <mat-form-field hintLabel="Busque Recursos" appearance="fill" class="colorr">
                 <mat-label>Buscar Recursos</mat-label>
-                <input matInput #input  >
+                <input matInput #input (keyup)="buscarcod(input.value)" >
 
             </mat-form-field>
         </div>
@@ -15,7 +15,7 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
            <ul fxLayout="row" fxLayoutGap="20px">
                 <li>
-                    <button mat-raised-button color="primary"(click)="openHorarioDialog()">Agregar Horario</button>
+                    <button mat-raised-button color="warn"(click)="openHorarioDialog()">Agregar Horario</button>
                 </li>
                 
             </ul>
@@ -23,18 +23,39 @@
         </div>
     </mat-card-header>
 
+    
+    <h2 class="alinear" >Buscar Por Facultad</h2>
+
     <mat-card-header>
-        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" >
+
+        <div>
+
+            <mat-form-field hintLabel="Busque Codigo Facultad" appearance="fill" class="colorr">
+                <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" >
+                    <mat-label>fac_codigo</mat-label>
+                <mat-select name="select"  >
+                 <mat-option  *ngFor="let fac of  facultades" [value]="fac.fac_codigo" (click)="ambientes(fac.fac_codigo)" > {{fac.fac_codigo}}</mat-option>
+                             
+                </mat-select> 
+            </div>
+        
           
-    <mat-label >Cod Facultad</mat-label>
-    <mat-select name="select"  >
-     <mat-option  *ngFor="let fac of  facultades" [value]="fac.fac_codigo" (click)="ambientes(fac.fac_codigo)" > {{fac.fac_codigo}}</mat-option>
-                 
-    </mat-select> 
-          
+        
+            </mat-form-field>
+
 
         </div>
+
     </mat-card-header>
+
+    
+
+
+     
+          
+   
+    
+    
 
     
 

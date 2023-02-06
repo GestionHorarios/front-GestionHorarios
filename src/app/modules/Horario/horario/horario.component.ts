@@ -10,6 +10,7 @@ import { FacultadService } from '../../shared/services/facultad.service';
 import { HorarioService } from '../../shared/services/horario.service';
 import { NewHorarioComponent } from '../new-horario/new-horario.component';
 import { DOCUMENT } from '@angular/common';
+import { RecursoService } from '../../shared/services/recurso.service';
 
 export interface facultadeselement{
 
@@ -31,6 +32,7 @@ export class HorarioComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document,private horarioService: HorarioService, 
     private AsignaccionService: AsignaccionService,
     private FacultadService: FacultadService,
+    private recursoService:RecursoService,
     public dialog: MatDialog, private snackBar: MatSnackBar,
     ) { }
 
@@ -147,6 +149,32 @@ export class HorarioComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     }
   }
+
+  buscarcod(rec_codigo: any){
+    if( rec_codigo.length === 0){
+     return this.getRecursos();
+    }
+ 
+    this.recursoService.getRecursoRec_Codigo(rec_codigo)
+    .subscribe( (resp: any) =>{
+     
+     this.processRecursosResponse(resp);
+   console.log(resp);
+ 
+    })
+ 
+   }
+
+   getRecursos(){
+    this.recursoService.getRecursos().subscribe((data:any) =>{
+  
+      console.log("respuesta recursos", data );
+      this.processRecursosResponse(data);
+  
+    },(error)=>{
+      console.log("error", error);
+    })
+   }
 
 
 }
