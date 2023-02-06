@@ -45,7 +45,7 @@ export class RecursoComponent implements OnInit {
   const dataRecurso: RecursoElement[]=[];
 
   if( resp.metadata[0].code == "00"){
-    let listRecursos= resp.recursoResponse.recursoDto;
+    let listRecursos= resp.recursoResponse.recurso;
 
     listRecursos.forEach((element: RecursoElement) => {
       //element.facultad = element.facultad.fac_codigo;
