@@ -16,7 +16,7 @@
 
       <mat-form-field>
         <mat-label>elija el codigo del Ambiente </mat-label>
-        <mat-select formControlName="rec_id">
+        <mat-select formControlName="recurso_id">
             <mat-option *ngFor="let recurso of  tipoRecursoHijos" [value]="recurso.rec_id" >
                 {{recurso.rec_codigo}}
               </mat-option>

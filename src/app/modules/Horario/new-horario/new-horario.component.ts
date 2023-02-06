@@ -46,7 +46,7 @@ export interface facultadeselement{
 export class NewHorarioComponent implements OnInit {
  
  
-  dias :String[]= ['lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+  dias :String[]= ['LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO'];
 
    horas:String[]= ['07:00:00','09:00:00','11:00:00','13:00:00','14:00:00','16:00:00','18:00:00','20:00:00','22:00:00'];
   public HorarioForm: FormGroup;
@@ -75,7 +75,7 @@ export class NewHorarioComponent implements OnInit {
        this.HorarioForm=this.fb.group({
 
         facultad:['',Validators.required],
-        rec_id:['', Validators.required],
+        recurso_id:['', Validators.required],
         asignatura:[''],
         curso_id:['', Validators.required],
         dia:['', Validators.required],
@@ -162,7 +162,7 @@ export class NewHorarioComponent implements OnInit {
   onSave(){
 
     let data={
-      rec_id: this.HorarioForm.get('rec_id')?.value,
+      recurso_id: this.HorarioForm.get('recurso_id')?.value,
       curso_id: this.HorarioForm.get('curso_id')?.value,
       dia: this.HorarioForm.get('dia')?.value,
       hinicio: this.HorarioForm.get('hinicio')?.value,
@@ -172,7 +172,7 @@ export class NewHorarioComponent implements OnInit {
     }
 
     const uploadImageData= new FormData();
-    uploadImageData.append('rec_id', data.rec_id);
+    uploadImageData.append('recurso_id', data.recurso_id);
     uploadImageData.append('curso_id', data.curso_id);
     uploadImageData.append('dia', data.dia);
     uploadImageData.append('hinicio', data.hinicio);
