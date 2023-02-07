@@ -181,10 +181,12 @@ export class NewHorarioComponent implements OnInit {
 
     this.HorarioService.saveHorario(uploadImageData).
         subscribe((data:any)=>{
-            this.dialogRef.close(1);
+          console.log("data es ",data);
+            this.dialogRef.close({codigo:1,mensaje:data.metadata[0].date});
 
         },(error:any)=>{
-          this.dialogRef.close(2);
+          this.dialogRef.close({codigo:2,mensaje:error.error.metadata[0].date});
+          
 
         })
 

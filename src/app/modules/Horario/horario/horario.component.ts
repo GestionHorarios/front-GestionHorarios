@@ -24,103 +24,116 @@ export interface facultadeselement{
 @Component({
   selector: 'app-horario',
   templateUrl: './horario.component.html',
-  styleUrls: ['./horario.component.css']
+  styleUrls: ['./horario.component.css'],
 })
 export class HorarioComponent implements OnInit {
-  facultades: facultadeselement[]=[];
-  tipoRecursoHijos:Recurso[]=[];
+  facultades: facultadeselement[] = [];
+  tipoRecursoHijos: Recurso[] = [];
 
-  constructor(@Inject(DOCUMENT) private document: Document,private horarioService: HorarioService, 
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private horarioService: HorarioService,
     private AsignaccionService: AsignaccionService,
     private FacultadService: FacultadService,
-    private recursoService:RecursoService,
-    public dialog: MatDialog, private snackBar: MatSnackBar,
-    ) { }
+    private recursoService: RecursoService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.facultadesbuscar();
   }
-  displayedColumns: string[]=['rec_id','rec_codigo','facultad','rec_descripcion', 'rec_capmax','rec_nombre','tiporecurso','ubicacion', 'actions'];
-  dataSource= new MatTableDataSource<RecursoElement>();
+  displayedColumns: string[] = [
+    'rec_id',
+    'rec_codigo',
+    'facultad',
+    'rec_descripcion',
+    'rec_capmax',
+    'rec_nombre',
+    'tiporecurso',
+    'ubicacion',
+    'actions',
+  ];
+  dataSource = new MatTableDataSource<RecursoElement>();
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  getHorarios(){
-    this.horarioService.getHorario().subscribe((data:any) =>{
-      console.log("respuesta de facultades",data);
-      this.processRecursosResponse(data);
-
-    },(errror:any)=>{
-      console.log("error en faultades ")
-    });
-
+  getHorarios() {
+    this.horarioService.getHorario().subscribe(
+      (data: any) => {
+        console.log('respuesta de facultades', data);
+        this.processRecursosResponse(data);
+      },
+      (errror: any) => {
+        console.log('error en faultades ');
+      }
+    );
   }
 
-  llamarHorario(rec_codigo:string) : void{
+  llamarHorario(rec_codigo: string): void {
     //this.document.location.href = "http://localhost:8080/horario/vista/"+rec_codigo;
-    window.open("http://localhost:8080/horario/vista/"+rec_codigo, "_blank");
+    window.open('http://localhost:8080/horario/vista/' + rec_codigo, '_blank');
   }
-  processRecursosResponse( resp:any){
-    const dataRecurso: RecursoElement[]=[];
-  
-    if( resp.metadata[0].code == "00"){
-      let listRecursos= resp.recursoResponse.recursoDto;
-  
+  processRecursosResponse(resp: any) {
+    const dataRecurso: RecursoElement[] = [];
+
+    if (resp.metadata[0].code == '00') {
+      let listRecursos = resp.recursoResponse.recursoDto;
+      console.log("esto es list r",listRecursos, "esto es ", resp)
+
+     if(listRecursos!=null){
       listRecursos.forEach((element: RecursoElement) => {
         //element.facultad = element.facultad.fac_codigo;
         //element.ubicacion = element.ubicacion.ubi_codigo;
         //element.tiporecurso = element.tiporecurso.rectipo_codigo;
         dataRecurso.push(element);
       });
-  
+    }else{
+      
+    }
       this.dataSource = new MatTableDataSource<RecursoElement>(dataRecurso);
       this.dataSource.paginator = this.paginator;
     }
-  
-   }
-
-  openHorarioDialog(){
-    const dialogRef = this.dialog.open( NewHorarioComponent , {
-      width: '450px'
-    });
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
-  
-      if(result==1){ 
-        this.openSnackBar("Horario  Agregado", "Exitosamente");
-        //this.getRecursos();
-  
-      
-      }else if (result ==2){
-        this.openSnackBar("se produjo un error al agregar el Horario ", "Error");
-  
-      }
-    });
-
-
   }
 
-  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar>{
-    return this.snackBar.open(message, action,{
-      duration: 2000
-    })
-   }
+  openHorarioDialog() {
+    const dialogRef = this.dialog.open(NewHorarioComponent, {
+      width: '450px',
+    });
 
-   facultadesbuscar(){
-    this.FacultadService.getFacultades().
-    subscribe((data:any)=>{
-      console.log("facultades",data);
+    dialogRef.afterClosed().subscribe(({ codigo, mensaje }) => {
+      if (codigo == 1) {
+        this.openSnackBar(mensaje, 'Exitosamente');
+        this.getRecursos();
+      } else if (codigo == 2) {
+        this.openSnackBar(mensaje, 'Error');
+      }
+      console.log('error', codigo, 'esto es', mensaje);
+    });
+  }
+
+  openSnackBar(
+    message: string,
+    action: string
+  ): MatSnackBarRef<SimpleSnackBar> {
+    return this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+  facultadesbuscar() {
+    this.FacultadService.getFacultades().subscribe((data: any) => {
+      console.log('facultades', data);
       this.procesarfacultades(data);
-    })
-   }
+    });
+  }
 
-   procesarfacultades(res: any){
-    const dataTipoRecursosHijos : facultadeselement[] = [];
-    if( res.metadata[0].code == "00") {
-      let listHijos  = res.faculdatResponse.facultad;
+  procesarfacultades(res: any) {
+    const dataTipoRecursosHijos: facultadeselement[] = [];
+    if (res.metadata[0].code == '00') {
+      let listHijos = res.faculdatResponse.facultad;
       console.log(listHijos);
-      listHijos.forEach((element : facultadeselement) => {
-        
+      listHijos.forEach((element: facultadeselement) => {
         dataTipoRecursosHijos.push(element);
       });
       //cargar los datos en el seelct hijos
@@ -128,96 +141,87 @@ export class HorarioComponent implements OnInit {
     }
   }
 
-   ambientes(id:string){
+  ambientes(id: string) {
     //console.log("hujos"+id);
-    this.AsignaccionService.getRecursosAmbientes(id)
-    .subscribe((data: any) => {
-    console.log("hijos: ",data);
-   this.procesarTipoAmbientes(data);
-    })
-   }
-   
-   procesarTipoAmbientes(res: any){
-    const dataTipoRecursosHijos : RecursoElement[] = [];
-    if( res.metadata[0].code == "00") {
+    this.AsignaccionService.getRecursosAmbientes(id).subscribe((data: any) => {
+      console.log('hijos: ', data);
+      this.procesarTipoAmbientes(data);
+    });
+  }
+
+  procesarTipoAmbientes(res: any) {
+    const dataTipoRecursosHijos: RecursoElement[] = [];
+    if (res.metadata[0].code == '00') {
       let listHijos = res.recursoResponse.recurso;
-      listHijos.forEach((element : RecursoElement) => {
-        
+      listHijos.forEach((element: RecursoElement) => {
         dataTipoRecursosHijos.push(element);
       });
       //cargar los datos en el seelct hijos
-      this.dataSource = new MatTableDataSource<RecursoElement>(dataTipoRecursosHijos);
-    this.dataSource.paginator = this.paginator;
+      this.dataSource = new MatTableDataSource<RecursoElement>(
+        dataTipoRecursosHijos
+      );
+      this.dataSource.paginator = this.paginator;
     }
   }
 
-  buscarcod(rec_codigo: any){
-    if( rec_codigo.length === 0){
-     return this.getRecursos();
+  buscarcod(rec_codigo: any) {
+    if (rec_codigo.length === 0) {
+      return this.getRecursos();
     }
- 
-    this.recursoService.getRecursoRec_Codigo(rec_codigo)
-    .subscribe( (resp: any) =>{
-     
-     this.processRecursosResponse2(resp);
-   console.log(resp);
- 
-    })
- 
-   }
 
-   getRecursos(){
-    this.recursoService.getRecursos().subscribe((data:any) =>{
-  
-      console.log("respuesta recursos", data );
-      this.processRecursosResponse(data);
-  
-    },(error)=>{
-      console.log("error", error);
-    })
-   }
+    this.recursoService
+      .getRecursoRec_Codigo(rec_codigo)
+      .subscribe((resp: any) => {
+        this.processRecursosResponse2(resp);
+        console.log(resp);
+      });
+  }
 
-   processRecursosResponse2( resp:any){
-    const dataRecurso: RecursoElement[]=[];
-  
-    if( resp.metadata[0].code == "00"){
-      let listRecursos= resp.recursoResponse.recurso;
-  
+  getRecursos() {
+    this.recursoService.getRecursos().subscribe(
+      (data: any) => {
+        console.log('respuesta recursos', data);
+        this.processRecursosResponse(data);
+      },
+      (error) => {
+        console.log('error', error);
+      }
+    );
+  }
+
+  processRecursosResponse2(resp: any) {
+    const dataRecurso: RecursoElement[] = [];
+
+    if (resp.metadata[0].code == '00') {
+      let listRecursos = resp.recursoResponse.recurso;
+
       listRecursos.forEach((element: RecursoElement) => {
         //element.facultad = element.facultad.fac_codigo;
         //element.ubicacion = element.ubicacion.ubi_codigo;
         //element.tiporecurso = element.tiporecurso.rectipo_codigo;
         dataRecurso.push(element);
       });
-  
+
       this.dataSource = new MatTableDataSource<RecursoElement>(dataRecurso);
       this.dataSource.paginator = this.paginator;
     }
-  
-   }
+  }
 
-   delete(rec_id: any){
-    const dialogRef = this.dialog.open( ConfirmComponent , {
+  delete(rec_id: any) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '450px',
-      data:{rec_id: rec_id, module:"horario"}
+      data: { rec_id: rec_id, module: 'horario' },
     });
 
-
-    dialogRef.afterClosed().subscribe((result:any) => {
-  
-      if(result==1){ 
-        this.openSnackBar("HORARIO DE RECURSO ELIMINADO", "Exitosamente");
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 1) {
+        this.openSnackBar('HORARIO DE RECURSO ELIMINADO', 'Exitosamente');
         this.getRecursos();
-  
-      
-      }else if (result ==2){
-        this.openSnackBar("se produjo un error al Eliminar  Horario", "Error");
-  
+      } else if (result == 2) {
+        this.openSnackBar('se produjo un error al Eliminar  Horario', 'Error');
       }
     });
   }
-
-
 }
 export interface HorarioElement{
   hor_id: Number,
