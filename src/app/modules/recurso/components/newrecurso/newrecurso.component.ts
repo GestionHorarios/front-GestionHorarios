@@ -22,14 +22,14 @@ export interface facultadeselement{
 
 }
 
-export interface ubicacioneselement{
-  ubi_codigo:string,
-  ubi_nombre:string,
-  ubi_direccion:string,
-  ubi_ciudad:string
+//export interface ubicacioneselement{
+  //ubi_codigo:string,
+  //ubi_nombre:string,
+  //ubi_direccion:string,
+  //ubi_ciudad:string
 
 
-}
+//}
 
 @Component({
   selector: 'app-newrecurso',
@@ -44,13 +44,13 @@ export class NewrecursoComponent implements OnInit {
   tipoRecursosPadres:TipoRecurso[]=[];
   tipoRecursoHijos:TipoRecurso[]=[];
   facultades: facultadeselement[]=[];
-  ubicaciones:ubicacioneselement[]=[];
+  //ubicaciones:ubicacioneselement[]=[];
   constructor(
     private fb: FormBuilder,
     private tipoRecursoService: TipoRecursoService,
     private RecursoService: RecursoService,
     private facultadesService:FacultadService,
-    private ubicacionesService:UbicacionService,
+   // private ubicacionesService:UbicacionService,
     private dialogRef: MatDialogRef<NewrecursoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -65,7 +65,7 @@ export class NewrecursoComponent implements OnInit {
       rec_capmax: ['', Validators.min(0)],
       rec_nombre: ['',Validators.required],
       rec_decripcion: ['',Validators.required],
-      ubicacion: ['',Validators.required]
+      //ubicacion: ['',Validators.required]
 
      
     })
@@ -83,7 +83,7 @@ export class NewrecursoComponent implements OnInit {
   ngOnInit(): void {
     this.getTipoRecursos();
     this.getTipoFacultades();
-    this.getTipoubicaciones();
+    //this.getTipoubicaciones();
   }
 
   onSave() {
@@ -96,7 +96,7 @@ export class NewrecursoComponent implements OnInit {
       rec_capmax: this.recursoForm.get('rec_capmax')?.value,
       rec_nombre: this.recursoForm.get('rec_nombre')?.value,
       rec_decripcion: this.recursoForm.get('rec_decripcion')?.value,
-      ubicacion: this.recursoForm.get('ubicacion')?.value
+     // ubicacion: this.recursoForm.get('ubicacion')?.value
 
     }
     const uploadImageData = new FormData();
@@ -108,12 +108,12 @@ export class NewrecursoComponent implements OnInit {
     uploadImageData.append('rec_capmax', data.rec_capmax);
     uploadImageData.append('rec_nombre', data.rec_nombre);
     uploadImageData.append('rec_decripcion', data.rec_decripcion);
-    uploadImageData.append('ubi_codigo', data.ubicacion); 
+    //uploadImageData.append('ubi_codigo', data.ubicacion); 
     
     if(this.data !=null){
       //actualizar recurso
 
-      this.RecursoService.updateRecursos(uploadImageData, this.data.rec_id)
+      this.RecursoService.updateRecursos(uploadImageData, this.data.id_recurso )
        .subscribe( (data: any )=>{
           this.dialogRef.close(1);
     
@@ -162,16 +162,16 @@ export class NewrecursoComponent implements OnInit {
     })
   }
 
-  getTipoubicaciones() {
+  //getTipoubicaciones() {
 
-    this.ubicacionesService.getUbicaciones().subscribe((data: any) => {
+    //this.ubicacionesService.getUbicaciones().subscribe((data: any) => {
       
-      this.ubicaciones=data.ubicacionResponse.ubicacion;
+      //this.ubicaciones=data.ubicacionResponse.ubicacion;
 
-    }, (error: any) => {
-      console.log("Error consultar Ubicaciones ", error);
-    })
-  }
+    //}, (error: any) => {
+      //console.log("Error consultar Ubicaciones ", error);
+    //})
+  //}
 
   hijos(id:string){
     //console.log("hujos"+id);
@@ -204,7 +204,7 @@ export class NewrecursoComponent implements OnInit {
       rec_capmax: [data.rec_capmax],
       rec_nombre: [data.rec_nombre, Validators.required],
       rec_decripcion: [data.rec_descripcion, Validators.required],
-      ubicacion: [data.ubi_codigo, Validators.required]
+     // ubicacion: [data.ubi_codigo, Validators.required]
     })
   }
   

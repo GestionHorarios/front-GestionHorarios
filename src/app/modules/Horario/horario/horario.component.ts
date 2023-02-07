@@ -72,7 +72,7 @@ export class HorarioComponent implements OnInit {
 
   llamarHorario(rec_codigo: string): void {
     //this.document.location.href = "http://localhost:8080/horario/vista/"+rec_codigo;
-    window.open('http://localhost:8080/horario/vista/' + rec_codigo, '_blank');
+    window.open("http://localhost:8080/api/v1/horario/vista/"+rec_codigo, "_blank");
   }
   processRecursosResponse(resp: any) {
     const dataRecurso: RecursoElement[] = [];

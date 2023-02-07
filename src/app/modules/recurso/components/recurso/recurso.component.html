@@ -72,7 +72,7 @@
              <!-- description column -->
              <ng-container matColumnDef="ubicacion">
                 <th mat-header-cell *matHeaderCellDef> ubicacion </th>
-                <td mat-cell *matCellDef="let element"> {{ element.ubicacion.ubi_codigo }} </td>
+                <td mat-cell *matCellDef="let element"> {{ element.facultad.ubicacion.ubi_codigo }} </td>
             </ng-container>
 
 
@@ -82,7 +82,7 @@
                 <td mat-cell *matCellDef="let element; let i=index;">
                     <!--realizamos un edit para actualizar evento onclick-->
 
-                   <button mat-icon-button color="accent" (click)="edit(element.rec_id, element.rec_codigo, element.tiporecurso, element.facultad, element.rec_capmax, element.rec_nombre, element.rec_descripcion, element.ubicacion)">
+                   <button mat-icon-button color="accent" (click)="edit(element.rec_id, element.rec_codigo, element.tiporecurso, element.facultad, element.rec_capmax, element.rec_nombre, element.rec_descripcion)">
                         <mat-icon aria-label="Edit">edit</mat-icon>
                     </button>
                 <!--evento  para eliminar -->

@@ -80,12 +80,12 @@ export class RecursoComponent implements OnInit {
 
  }
 
- edit(rec_id:number,rec_codigo:string, rectipo_codigo:any, fac_codigo:any,rec_capmax:number,rec_nombre:string,rec_descripcion:string,ubi_codigo:any)
+ edit(rec_id:number,rec_codigo:string, rectipo_codigo:any, fac_codigo:any,rec_capmax:number,rec_nombre:string,rec_descripcion:string)
  {
 
   const dialogRef = this.dialog.open( NewrecursoComponent , {
     width: '450px',
-    data:{rec_id: rec_id, rec_codigo: rec_codigo, rectipo_codigo: rectipo_codigo, fac_codigo: fac_codigo, rec_capmax: rec_capmax, rec_nombre: rec_nombre, rec_descripcion: rec_descripcion, ubi_codigo: ubi_codigo }
+    data:{id_recurso: rec_id, rec_codigo: rec_codigo, rectipo_codigo: rectipo_codigo, fac_codigo: fac_codigo, rec_capmax: rec_capmax, rec_nombre: rec_nombre, rec_descripcion: rec_descripcion }
   });
 
   dialogRef.afterClosed().subscribe((result:any) => {
