@@ -96,9 +96,10 @@ export class HorarioComponent implements OnInit {
     }
   }
 
-  openHorarioDialog() {
+  openHorarioDialog(rec_id:number, facultad:any) {
     const dialogRef = this.dialog.open(NewHorarioComponent, {
       width: '450px',
+      data:{rec_id:rec_id ,fac_codigo:facultad}
     });
 
     dialogRef.afterClosed().subscribe(({ codigo, mensaje }) => {

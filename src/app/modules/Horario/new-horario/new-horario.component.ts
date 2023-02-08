@@ -61,6 +61,7 @@ export class NewHorarioComponent implements OnInit {
   
 
   constructor(
+    
     private fb: FormBuilder,
     private tipoRecursoService: TipoRecursoService,
     private RecursosService: RecursoService,
@@ -74,8 +75,8 @@ export class NewHorarioComponent implements OnInit {
       this.estadoFormulario="Agregar"
        this.HorarioForm=this.fb.group({
 
-        facultad:['',Validators.required],
-        recurso_id:['', Validators.required],
+        facultad:[data.fac_codigo],
+        recurso_id:[data.rec_id],
         asignatura:[''],
         curso_id:['', Validators.required],
         dia:['', Validators.required],
@@ -86,6 +87,7 @@ export class NewHorarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTipoFacultades();
+    this.AsigFacul(this.data.fac_codigo);
   }
 
   getTipoFacultades() {
